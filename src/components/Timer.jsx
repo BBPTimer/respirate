@@ -1,15 +1,22 @@
 import { useRef, useState } from "react";
+import Rate from "../classes/Rate";
 
-const Timer = () => {
+const Timer = ({ rates, setRates }) => {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
-  const [taps, setTaps] = useState(0);
+  const [stateTaps, setStateTaps] = useState(0);
+  const refTaps = useRef(0);
   const interval = useRef();
   let initialDate;
 
+  const updateTaps = (newTaps) => {
+    refTaps.current = newTaps;
+    setStateTaps(newTaps);
+  };
+
   const initializeTimer = () => {
     setIsTimerRunning(true);
-    setTaps(1);
+    updateTaps(1);
     initialDate = new Date();
     interval.current = setInterval(timer, 100);
   };
@@ -21,13 +28,14 @@ const Timer = () => {
     if (deltaDate >= 5) {
       clearInterval(interval.current);
       setIsTimerRunning(false);
+      setRates([...rates, new Rate(refTaps.current, initialDate)]);
     }
   };
 
   const reset = () => {
     setIsTimerRunning(false);
     setSeconds(0);
-    setTaps(0);
+    updateTaps(0);
     clearInterval(interval.current);
   };
 
@@ -38,12 +46,14 @@ const Timer = () => {
       <br />
       <img
         src="src/assets/heart.svg"
-        onClick={isTimerRunning ? () => setTaps(taps + 1) : initializeTimer}
+        onClick={
+          isTimerRunning ? () => updateTaps(stateTaps + 1) : initializeTimer
+        }
       />
       <br />
       <i>Timer:</i> {seconds}
       <br />
-      <i>Tap Count:</i> {taps}
+      <i>Tap Count:</i> {stateTaps}
       <br />
       <br />
       <button onClick={reset}>Reset</button>
