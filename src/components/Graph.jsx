@@ -1,9 +1,23 @@
+import { createTheme, ThemeProvider } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { useContext } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Graph = () => {
+  // MUI theme
+  const theme = createTheme({
+    typography: {
+      fontFamily: [
+        "Gill Sans",
+        "Gill Sans MT",
+        "Calibri",
+        "Trebuchet MS",
+        "sans-serif",
+      ].join(","),
+    },
+  });
+
   const { rates } = useContext(AppContext);
 
   const valueFormatter = (value) => {
@@ -12,30 +26,33 @@ const Graph = () => {
   };
 
   return (
-    <LineChart
-      dataset={rates}
-      xAxis={[
-        {
-          dataKey: "timestamp",
-          label: "Date",
-          valueFormatter: valueFormatter,
-          scaleType: "band",
-          tickLabelStyle: {
-            angle: 90,
+    <ThemeProvider theme={theme}>
+      <LineChart
+        dataset={rates}
+        xAxis={[
+          {
+            dataKey: "timestamp",
+            label: "Date",
+            valueFormatter: valueFormatter,
+            scaleType: "band",
+            tickLabelStyle: {
+              angle: 90,
+            },
+            height: 175,
           },
-          height: 175,
-        },
-      ]}
-      series={[
-        {
-          dataKey: "rate",
-          valueFormatter: (value) => value + " breaths/minute",
-          color: "Red",
-        },
-      ]}
-      yAxis={[{ label: "Breathing Rate" }]}
-      grid={{ horizontal: true }}
-    />
+        ]}
+        series={[
+          {
+            dataKey: "rate",
+            valueFormatter: (value) => value + " breaths/minute",
+            color: "Red",
+          },
+        ]}
+        yAxis={[{ label: "Breathing Rate" }]}
+        grid={{ horizontal: true }}
+        height={400}
+      />
+    </ThemeProvider>
   );
 };
 
