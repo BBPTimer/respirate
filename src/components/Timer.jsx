@@ -3,7 +3,7 @@ import Rate from "../classes/Rate";
 import { AppContext } from "../contexts/AppContext";
 
 const Timer = () => {
-  const timerDuration = 5;
+  const timerDuration = 2;
 
   const { rates, setRates } = useContext(AppContext);
 

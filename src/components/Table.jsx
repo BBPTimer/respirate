@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Table = () => {
@@ -8,7 +9,7 @@ const Table = () => {
     return (
       <tr key={rate.timestamp.toString()}>
         <td>{rate.rate}</td>
-        <td>{rate.timestamp.toDateString() + " " + rate.timestamp.toTimeString().substring(0, 8)}</td>
+        <td>{formatDate(rate.timestamp)}</td>
       </tr>
     );
   });
@@ -17,11 +18,19 @@ const Table = () => {
     <table>
       <thead>
         <tr>
-          <th>Rate</th>
+          <th>Breathing Rate</th>
           <th>Timestamp</th>
         </tr>
       </thead>
-      <tbody>{rates.length ? rateList : <td colSpan={2}>No data</td>}</tbody>
+      <tbody>
+        {rates.length ? (
+          rateList
+        ) : (
+          <tr>
+            <td colSpan={2}>No data</td>
+          </tr>
+        )}
+      </tbody>
     </table>
   );
 };
