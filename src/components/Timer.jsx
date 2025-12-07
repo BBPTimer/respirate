@@ -1,12 +1,19 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import Rate from "../classes/Rate";
+import { AppContext } from "../contexts/AppContext";
 
-const Timer = ({ rates, setRates }) => {
+const Timer = () => {
+  const timerDuration = 5;
+
+  const { rates, setRates } = useContext(AppContext);
+
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [stateTaps, setStateTaps] = useState(0);
+
   const refTaps = useRef(0);
   const interval = useRef();
+
   let initialDate;
 
   const updateTaps = (newTaps) => {
@@ -25,10 +32,13 @@ const Timer = ({ rates, setRates }) => {
     const currentDate = new Date();
     const deltaDate = (currentDate - initialDate) / 1000;
     setSeconds(deltaDate);
-    if (deltaDate >= 5) {
+    if (deltaDate >= timerDuration) {
       clearInterval(interval.current);
       setIsTimerRunning(false);
-      setRates([...rates, new Rate(refTaps.current, initialDate)]);
+      setRates([
+        ...rates,
+        new Rate((60 / timerDuration) * refTaps.current, initialDate),
+      ]);
     }
   };
 
@@ -45,7 +55,7 @@ const Timer = ({ rates, setRates }) => {
       includes breathing in and breathing out) as the timer runs below.
       <br />
       <img
-        src="src/assets/heart.svg"
+        src="/heart.svg"
         onClick={
           isTimerRunning ? () => updateTaps(stateTaps + 1) : initializeTimer
         }

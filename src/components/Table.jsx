@@ -1,9 +1,14 @@
-const Table = ({ rates }) => {
+import { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
+
+const Table = () => {
+  const { rates } = useContext(AppContext);
+
   const rateList = rates.map((rate) => {
     return (
       <tr key={rate.timestamp.toString()}>
         <td>{rate.rate}</td>
-        <td>{rate.timestamp.toString()}</td>
+        <td>{rate.timestamp.toDateString() + " " + rate.timestamp.toTimeString().substring(0, 8)}</td>
       </tr>
     );
   });
@@ -16,7 +21,7 @@ const Table = ({ rates }) => {
           <th>Timestamp</th>
         </tr>
       </thead>
-      <tbody>{rateList}</tbody>
+      <tbody>{rates.length ? rateList : <td colSpan={2}>No data</td>}</tbody>
     </table>
   );
 };
