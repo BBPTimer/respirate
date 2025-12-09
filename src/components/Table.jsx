@@ -3,11 +3,14 @@ import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Table = () => {
-  const { rates } = useContext(AppContext);
+  const { targetRate, rates } = useContext(AppContext);
 
   const rateList = rates.map((rate) => {
     return (
-      <tr key={rate.timestamp.toString()}>
+      <tr
+        key={rate.timestamp.toString()}
+        style={{ color: rate.rate > targetRate ? "Coral" : "Green" }}
+      >
         <td>{rate.rate}</td>
         <td>{formatDate(rate.timestamp)}</td>
       </tr>
@@ -27,7 +30,7 @@ const Table = () => {
           rateList
         ) : (
           <tr>
-            <td colSpan={2}>No data</td>
+            <td colSpan={2}>No data to display</td>
           </tr>
         )}
       </tbody>

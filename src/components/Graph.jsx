@@ -1,24 +1,11 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { useContext } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Graph = () => {
-  // MUI theme
-  const theme = createTheme({
-    typography: {
-      fontFamily: [
-        "Gill Sans",
-        "Gill Sans MT",
-        "Calibri",
-        "Trebuchet MS",
-        "sans-serif",
-      ].join(","),
-    },
-  });
-
-  const { rates } = useContext(AppContext);
+  const { theme, targetRate, rates } = useContext(AppContext);
 
   const valueFormatter = (value) => {
     const dateObject = new Date(value);
@@ -48,7 +35,16 @@ const Graph = () => {
             color: "Red",
           },
         ]}
-        yAxis={[{ label: "Breathing Rate" }]}
+        yAxis={[
+          {
+            label: "Breathing Rate",
+            colorMap: {
+              type: "piecewise",
+              thresholds: [targetRate],
+              colors: ["Green", "Coral"],
+            },
+          },
+        ]}
         grid={{ horizontal: true }}
         height={400}
       />
