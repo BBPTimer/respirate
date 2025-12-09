@@ -51,6 +51,7 @@ const Timer = () => {
 
   return (
     <>
+      <h1>Timer</h1>
       Please tap this heart for every full breath your pet takes (a full breath
       includes breathing in and breathing out) as the timer runs below.
       <br />

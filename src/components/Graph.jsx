@@ -13,6 +13,9 @@ const Graph = () => {
   };
 
   return (
+    <>
+      <h1>Graph</h1>
+      <i>Target Rate: {targetRate} breaths/minute</i>
       <LineChart
         dataset={rates}
         xAxis={[
@@ -47,6 +50,7 @@ const Graph = () => {
         grid={{ horizontal: true }}
         height={400}
       />
+    </>
   );
 };
 
