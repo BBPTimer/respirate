@@ -69,6 +69,7 @@ const Timer = () => {
       <br />
       <br />
       <button onClick={reset}>Reset</button>
+      <br />
     </>
   );
 };

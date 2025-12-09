@@ -6,6 +6,11 @@ body {
   text-align: center;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
 #heart:active {
   transform: scale(1.1);
 }
@@ -24,4 +29,8 @@ table {
 
 .coral {
   color: coral;
+}
+
+footer {
+  font-size: 12px;
 }

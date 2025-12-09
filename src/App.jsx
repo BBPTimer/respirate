@@ -1,11 +1,12 @@
 import { ThemeProvider } from "@emotion/react";
 import { useContext } from "react";
+import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router";
 import "./App.css";
 import Graph from "./components/Graph";
-import Table from "./components/Table";
+import Header from "./components/Header";
+import Data from "./components/Data";
 import Timer from "./components/Timer";
 import { AppContext } from "./contexts/AppContext";
-import { Divider } from "@mui/material";
 
 function App() {
   const { theme } = useContext(AppContext);
@@ -13,13 +14,19 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Timer />
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Timer />} />
+            <Route path="/graph" element={<Graph />} />
+            <Route path="/data" element={<Data />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Router>
         <br />
-        <br />
-        <Divider />
-        <Graph />
-        <Divider />
-        <Table />
+        <footer className="white-bg gray-hover">
+          &copy; {new Date().getFullYear()} Greg Weseloh LLC
+        </footer>
       </ThemeProvider>
     </>
   );

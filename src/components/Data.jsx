@@ -4,7 +4,7 @@ import Rate from "../classes/Rate";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
-const Table = () => {
+const Data = () => {
   const { targetRate, rates, setRates } = useContext(AppContext);
 
   const columns = [
@@ -52,8 +52,8 @@ const Table = () => {
 
   return (
     <>
-      <h3>Table</h3>
-      <h4>Add Rate</h4>
+      <h3>Data</h3>
+      <h5>Add Rate</h5>
       <form onSubmit={handleSubmit}>
         <input
           type="number"
@@ -108,4 +108,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default Data;
