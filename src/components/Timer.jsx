@@ -51,11 +51,12 @@ const Timer = () => {
 
   return (
     <>
-      <h1>Timer</h1>
-      Please tap this heart for every full breath your pet takes (a full breath
-      includes breathing in and breathing out) as the timer runs below.
+      <h3>Timer</h3>
+      Tap this heart for every full breath your pet takes as the timer runs
+      below.
       <br />
       <img
+        id="heart"
         src="/heart.svg"
         onClick={
           isTimerRunning ? () => updateTaps(stateTaps + 1) : initializeTimer

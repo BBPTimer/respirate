@@ -18,7 +18,7 @@ const Table = () => {
 
   return (
     <>
-      <h1>Table</h1>
+      <h3>Table</h3>
       <DataGrid
         // Data
         columns={columns}
@@ -34,7 +34,7 @@ const Table = () => {
         sx={{ border: 0 }}
         // Row conditional styling
         getRowClassName={(params) =>
-          params.row.rate > targetRate ? "coral" : "green"
+          params.row.rate >= targetRate ? "coral" : "green"
         }
         // Toolbar settings
         showToolbar

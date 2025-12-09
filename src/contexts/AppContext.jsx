@@ -17,7 +17,7 @@ export const AppContextProvider = ({ children }) => {
     },
   });
 
-  const targetRate = 100;
+  const [targetRate, setTargetRate] = useState(100);
   const [rates, setRates] = useState([]);
 
   return (
@@ -25,6 +25,7 @@ export const AppContextProvider = ({ children }) => {
       value={{
         theme,
         targetRate,
+        setTargetRate,
         rates,
         setRates,
       }}

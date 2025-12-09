@@ -6,6 +6,14 @@ body {
   text-align: center;
 }
 
+#heart:active {
+  transform: scale(1.1);
+}
+
+input {
+  font-size: 16px;
+}
+
 table {
   margin: auto;
 }
