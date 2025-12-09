@@ -1,3 +1,4 @@
+import { DataGrid } from "@mui/x-data-grid";
 import { useContext } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
@@ -5,36 +6,47 @@ import { AppContext } from "../contexts/AppContext";
 const Table = () => {
   const { targetRate, rates } = useContext(AppContext);
 
-  const rateList = rates.map((rate) => {
-    return (
-      <tr
-        key={rate.timestamp.toString()}
-        style={{ color: rate.rate > targetRate ? "Coral" : "Green" }}
-      >
-        <td>{rate.rate}</td>
-        <td>{formatDate(rate.timestamp)}</td>
-      </tr>
-    );
-  });
+  const columns = [
+    { field: "rate", headerName: "Breathing Rate", type: "number", width: 101 },
+    {
+      field: "timestamp",
+      valueFormatter: (value) => formatDate(value),
+      headerName: "Timestamp",
+      width: 175,
+    },
+  ];
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Breathing Rate</th>
-          <th>Timestamp</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rates.length ? (
-          rateList
-        ) : (
-          <tr>
-            <td colSpan={2}>No data to display</td>
-          </tr>
-        )}
-      </tbody>
-    </table>
+    <DataGrid
+      // Data
+      columns={columns}
+      rows={rates}
+      getRowId={(row) => row.timestamp}
+      // Initial sort
+      initialState={{
+        sorting: {
+          sortModel: [{ field: "timestamp", sort: "desc" }],
+        },
+      }}
+      // Styling
+      sx={{ width: 400, margin: "auto" }}
+      // Conditional styling
+      getRowClassName={(params) =>
+        params.row.rate > targetRate ? "coral" : "green"
+      }
+      showToolbar
+      disableColumnSelector
+      // CSV export
+      slotProps={{
+        toolbar: {
+          csvOptions: {
+            fileName: "breathingRates",
+            delimiter: ",",
+            utf8WithBom: true,
+          },
+        },
+      }}
+    />
   );
 };
 

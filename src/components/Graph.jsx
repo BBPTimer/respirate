@@ -5,7 +5,7 @@ import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Graph = () => {
-  const { theme, targetRate, rates } = useContext(AppContext);
+  const { targetRate, rates } = useContext(AppContext);
 
   const valueFormatter = (value) => {
     const dateObject = new Date(value);
@@ -13,7 +13,6 @@ const Graph = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <LineChart
         dataset={rates}
         xAxis={[
@@ -48,7 +47,6 @@ const Graph = () => {
         grid={{ horizontal: true }}
         height={400}
       />
-    </ThemeProvider>
   );
 };
 

@@ -9,3 +9,11 @@ body {
 table {
   margin: auto;
 }
+
+.green {
+  color: green;
+}
+
+.coral {
+  color: coral;
+}
