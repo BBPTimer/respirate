@@ -7,23 +7,6 @@ import { AppContext } from "../contexts/AppContext";
 const Data = () => {
   const { pets, selectedPet, rates, setRates } = useContext(AppContext);
 
-  const columns = [
-    {
-      field: "rate",
-      headerName: "Rate",
-      align: "left",
-      headerAlign: "left",
-      type: "number",
-      width: 75,
-    },
-    {
-      field: "timestamp",
-      valueFormatter: (value) => formatDate(value),
-      headerName: "Timestamp",
-      width: 180,
-    },
-  ];
-
   const handleSubmit = (event) => {
     // Prevent form submission
     event.preventDefault();
@@ -50,9 +33,47 @@ const Data = () => {
     setRates(newRates);
   };
 
+  const columns = [
+    {
+      field: "rate",
+      headerName: "Rate",
+      align: "left",
+      headerAlign: "left",
+      type: "number",
+      width: 75,
+    },
+    {
+      field: "timestamp",
+      valueFormatter: (value) => formatDate(value),
+      headerName: "Timestamp",
+      width: 180,
+    },
+  ];
+
   return (
     <>
       <h3>Data</h3>
+      <h5>Add Rate</h5>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          id="rate"
+          name="rate"
+          min="1"
+          max="999"
+          defaultValue={pets[selectedPet].targetRate}
+          required
+        ></input>
+        <i>
+          <label htmlFor="rate"> breaths/minute</label>{" "}
+          <label htmlFor="timestamp">at </label>
+          <input type="datetime-local" id="timestamp" name="timestamp" />{" "}
+        </i>
+        <button>Add</button>
+      </form>
+
       <DataGrid
         // Data
         columns={columns}
@@ -77,34 +98,13 @@ const Data = () => {
         slotProps={{
           toolbar: {
             csvOptions: {
-              fileName: "breathingRates",
+              fileName: pets[selectedPet].name + "BreathingRates",
               delimiter: ",",
               utf8WithBom: true,
             },
           },
         }}
       />
-
-      <h5>Add Rate</h5>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          id="rate"
-          name="rate"
-          min="1"
-          max="999"
-          defaultValue={pets[selectedPet].targetRate}
-          required
-        ></input>
-        <i>
-          <label htmlFor="rate"> breaths/minute</label>{" "}
-          <label htmlFor="timestamp">at </label>
-          <input type="datetime-local" id="timestamp" name="timestamp" />{" "}
-        </i>
-        <button>Add</button>
-      </form>
     </>
   );
 };
