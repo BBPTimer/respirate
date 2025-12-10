@@ -1,8 +1,7 @@
 export default class Pet {
-  constructor(name, vet) {
+  constructor(name, targetRate) {
     this.name = name;
-    this.vet = vet;
-    this.targetRate = 30;
+    this.targetRate = targetRate;
     this.rateHistory = [];
   }
 }

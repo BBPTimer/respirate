@@ -1,14 +1,15 @@
 import { useContext, useRef, useState } from "react";
 import Rate from "../classes/Rate";
 import { AppContext } from "../contexts/AppContext";
+import { formatDate } from "../common/utils";
 
 const Timer = () => {
-  const timerDuration = 2;
+  const timerDuration = 5;
 
   const { rates, setRates } = useContext(AppContext);
 
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [seconds, setSeconds] = useState(0);
+  const [seconds, setSeconds] = useState(timerDuration);
   const [stateTaps, setStateTaps] = useState(0);
 
   const refTaps = useRef(0);
@@ -23,6 +24,7 @@ const Timer = () => {
 
   const initializeTimer = () => {
     setIsTimerRunning(true);
+    // Record first tap
     updateTaps(1);
     initialDate = new Date();
     interval.current = setInterval(timer, 100);
@@ -31,14 +33,27 @@ const Timer = () => {
   const timer = () => {
     const currentDate = new Date();
     const deltaDate = (currentDate - initialDate) / 1000;
-    setSeconds(deltaDate);
-    if (deltaDate >= timerDuration) {
+    setSeconds(timerDuration - deltaDate);
+    if (timerDuration - deltaDate < 0) {
+      // Stop timer
       clearInterval(interval.current);
       setIsTimerRunning(false);
+      // Add rate to history
       setRates([
         ...rates,
         new Rate((60 / timerDuration) * refTaps.current, initialDate),
       ]);
+      // Alert user of rate
+      alert(
+        (60 / timerDuration) * refTaps.current +
+          " breaths/minute added to rate history on " +
+          formatDate(initialDate) +
+          "."
+      );
+      // Reset timer
+      setSeconds(timerDuration);
+      // Reset taps
+      updateTaps(0);
     }
   };
 
@@ -63,7 +78,7 @@ const Timer = () => {
         }
       />
       <br />
-      <i>Timer:</i> {seconds}
+      <i>Timer:</i> {Math.floor(seconds)}
       <br />
       <i>Tap Count:</i> {stateTaps}
       <br />

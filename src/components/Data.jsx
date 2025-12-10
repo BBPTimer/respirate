@@ -10,17 +10,17 @@ const Data = () => {
   const columns = [
     {
       field: "rate",
-      headerName: "Breathing Rate",
+      headerName: "Rate",
       align: "left",
       headerAlign: "left",
       type: "number",
-      width: 130,
+      width: 75,
     },
     {
       field: "timestamp",
       valueFormatter: (value) => formatDate(value),
       headerName: "Timestamp",
-      width: 175,
+      width: 180,
     },
   ];
 
