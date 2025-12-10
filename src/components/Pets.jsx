@@ -1,46 +1,71 @@
 import { useContext } from "react";
+import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
 
 const Pets = () => {
-  const { pets, setPets, selectedPet } = useContext(AppContext);
+  const { pets, setPets } = useContext(AppContext);
 
-  const handleChange = (event, key) => {
+  const handleSave = (event, index) => {
+    event.preventDefault();
+
     let updatedPets = [...pets];
-    updatedPets[selectedPet][key] = event.target.value;
+    updatedPets[index].name = event.target.name.value;
+    updatedPets[index].targetRate = event.target.targetRate.value;
     setPets(updatedPets);
   };
+
+  const handleAdd = (event) => {
+    event.preventDefault();
+
+    let updatedPets = [...pets];
+    updatedPets.push(
+      new Pet(event.target.name.value, event.target.targetRate.value)
+    );
+    setPets(updatedPets);
+
+    // Clear form
+    event.target.reset();
+  };
+
+  const rows = pets.map((pet, index) => {
+    return (
+      <form key={index} onSubmit={(event) => handleSave(event, index)}>
+        <input name="name" defaultValue={pet.name} required />{" "}
+        <input
+          name="targetRate"
+          type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          min="1"
+          max="999"
+          defaultValue={pet.targetRate}
+          required
+        />{" "}
+        breaths/minute <button>Save</button>
+        <br />
+        <br />
+      </form>
+    );
+  });
 
   return (
     <>
       <h3>Pets</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Target Rate</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <input
-              value={pets[selectedPet].name}
-              onChange={(event) => handleChange(event, "name")}
-            />
-            <td>
-              <input
-                type="number"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                min="1"
-                max="999"
-                value={pets[selectedPet].targetRate}
-                onChange={(event) => handleChange(event, "targetRate")}
-              />{" "}
-              breaths/minute
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      {rows}
+      <h5>Add Pet</h5>
+      <form onSubmit={handleAdd}>
+        <input name="name" required />{" "}
+        <input
+          name="targetRate"
+          type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          min="1"
+          max="999"
+          required
+        />{" "}
+        breaths/minute <button>Add</button>
+      </form>
     </>
   );
 };

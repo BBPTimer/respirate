@@ -11,6 +11,12 @@ const Data = () => {
     // Prevent form submission
     event.preventDefault();
 
+    // Use current time if no form value for timestamp
+    let date = new Date();
+    if (event.target.timestamp.value) {
+      date = new Date(event.target.timestamp.value);
+    }
+
     // Copy existing rates array
     let newRates = [...rates];
 
@@ -19,10 +25,7 @@ const Data = () => {
       new Rate(
         // Convert rate from string to integer
         parseInt(event.target.rate.value),
-        // Use current time if no form value for timestamp
-        event.target.timestamp.value
-          ? new Date(event.target.timestamp.value)
-          : new Date()
+        date
       )
     );
 
@@ -31,6 +34,14 @@ const Data = () => {
 
     // Update rates
     setRates(newRates);
+
+    // Alert user of rate
+    alert(
+      event.target.rate.value +
+        " breaths/minute added to rate history on " +
+        formatDate(date) +
+        "."
+    );
   };
 
   const columns = [
