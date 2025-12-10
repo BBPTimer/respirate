@@ -64,8 +64,10 @@ const Data = () => {
   return (
     <>
       <h3>Data</h3>
-      <h5>Add Rate</h5>
-      <form onSubmit={handleSubmit}>
+      <form className="white-bg" onSubmit={handleSubmit}>
+        <b>Add Rate</b>
+        <br />
+        <br />
         <input
           type="number"
           inputMode="numeric"
@@ -77,14 +79,15 @@ const Data = () => {
           defaultValue={pets[selectedPet].targetRate}
           required
         ></input>
-        <i>
-          <label htmlFor="rate"> breaths/minute</label>{" "}
-          <label htmlFor="timestamp">at </label>
-          <input type="datetime-local" id="timestamp" name="timestamp" />{" "}
-        </i>
+        <label htmlFor="rate"> breaths/minute</label>
+        <br />
+        <label htmlFor="timestamp">at </label>
+        <input type="datetime-local" id="timestamp" name="timestamp" />
+        <br />
+        <br />
         <button>Add</button>
       </form>
-
+      <br />
       <DataGrid
         // Data
         columns={columns}
@@ -97,7 +100,7 @@ const Data = () => {
           },
         }}
         // Table styling
-        sx={{ border: 0 }}
+        sx={{ border: 1, borderColor: "lightgray", borderRadius: "5px" }}
         // Row conditional styling
         getRowClassName={(params) =>
           params.row.rate >= pets[selectedPet].targetRate ? "coral" : "green"

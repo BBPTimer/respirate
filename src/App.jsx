@@ -26,9 +26,7 @@ function App() {
           </Routes>
         </Router>
         <br />
-        <footer className="white-bg gray-hover">
-          &copy; {new Date().getFullYear()} Greg Weseloh LLC
-        </footer>
+        <footer>&copy; {new Date().getFullYear()} Greg Weseloh LLC</footer>
       </ThemeProvider>
     </>
   );

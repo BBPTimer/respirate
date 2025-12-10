@@ -29,9 +29,18 @@ const Pets = () => {
 
   const rows = pets.map((pet, index) => {
     return (
-      <form key={index} onSubmit={(event) => handleSave(event, index)}>
-        <input name="name" defaultValue={pet.name} required />{" "}
+      <form
+        key={index}
+        className="white-bg"
+        onSubmit={(event) => handleSave(event, index)}
+      >
+        <label htmlFor="name">Name: </label>
+        <input id="name" name="name" defaultValue={pet.name} required />
+        <br />
+        <br />
+        <label htmlFor="targetRate">Target rate: </label>
         <input
+          id="targetRate"
           name="targetRate"
           type="number"
           inputMode="numeric"
@@ -41,9 +50,10 @@ const Pets = () => {
           defaultValue={pet.targetRate}
           required
         />{" "}
-        breaths/minute <button>Save</button>
+        breaths/minute
         <br />
         <br />
+        <button>Save</button>
       </form>
     );
   });
@@ -52,10 +62,17 @@ const Pets = () => {
     <>
       <h3>Pets</h3>
       {rows}
-      <h5>Add Pet</h5>
-      <form onSubmit={handleAdd}>
-        <input name="name" required />{" "}
+      <form className="white-bg" onSubmit={handleAdd}>
+        <b>Add Pet</b>
+        <br />
+        <br />
+        <label htmlFor="name">Name: </label>
+        <input id="name" name="name" required />
+        <br />
+        <br />
+        <label htmlFor="targetRate">Target rate: </label>
         <input
+          id="targetRate"
           name="targetRate"
           type="number"
           inputMode="numeric"
@@ -64,7 +81,10 @@ const Pets = () => {
           max="999"
           required
         />{" "}
-        breaths/minute <button>Add</button>
+        breaths/minute
+        <br />
+        <br />
+        <button>Add</button>
       </form>
     </>
   );

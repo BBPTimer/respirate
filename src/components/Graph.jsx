@@ -72,14 +72,25 @@ const Graph = () => {
         ]}
         grid={{ horizontal: true }}
         height={400}
+        sx={{
+          backgroundColor: "white",
+          border: 1,
+          borderColor: "lightgray",
+          borderRadius: "5px",
+        }}
       />
-
-      <form onSubmit={handleSubmit}>
-        <h5>Date Range</h5>
+      <form className="white-bg" onSubmit={handleSubmit}>
+        <b>Date Range</b>
+        <br />
+        <br />
         <label htmlFor="startDate">Start date: </label>
-        <input type="date" id="startDate" name="startDate" />{" "}
+        <input type="date" id="startDate" name="startDate" />
+        <br />
         <label htmlFor="endDate">End date: </label>
-        <input type="date" id="endDate" name="endDate" /> <button>Save</button>
+        <input type="date" id="endDate" name="endDate" />
+        <br />
+        <br />
+        <button>Save</button>
         <button type="button" onClick={() => setData([...rates])}>
           Show All Data
         </button>
