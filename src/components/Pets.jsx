@@ -4,9 +4,9 @@ import { AppContext } from "../contexts/AppContext";
 const Pets = () => {
   const { pets, setPets, selectedPet } = useContext(AppContext);
 
-  const handleTargetRateChange = (event) => {
+  const handleChange = (event, key) => {
     let updatedPets = [...pets];
-    updatedPets[selectedPet].targetRate = event.target.value;
+    updatedPets[selectedPet][key] = event.target.value;
     setPets(updatedPets);
   };
 
@@ -22,7 +22,10 @@ const Pets = () => {
         </thead>
         <tbody>
           <tr>
-            <td>{pets[selectedPet].name}</td>
+            <input
+              value={pets[selectedPet].name}
+              onChange={(event) => handleChange(event, "name")}
+            />
             <td>
               <input
                 type="number"
@@ -31,7 +34,7 @@ const Pets = () => {
                 min="1"
                 max="999"
                 value={pets[selectedPet].targetRate}
-                onChange={handleTargetRateChange}
+                onChange={(event) => handleChange(event, "targetRate")}
               />{" "}
               breaths/minute
             </td>

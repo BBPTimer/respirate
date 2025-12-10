@@ -65,7 +65,6 @@ const Header = () => {
           <MenuItem onClick={handleClose}>Pets</MenuItem>
         </Link>
       </Menu>
-      <br />
       <select value={selectedPet} onChange={handleSelectChange}>
         {options}
       </select>

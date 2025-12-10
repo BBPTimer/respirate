@@ -8,6 +8,11 @@ const Graph = () => {
 
   const [data, setData] = useState([...rates]);
 
+  const valueFormatter = (value) => {
+    const dateObject = new Date(value);
+    return formatDate(dateObject);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -31,25 +36,9 @@ const Graph = () => {
     );
   };
 
-  const valueFormatter = (value) => {
-    const dateObject = new Date(value);
-    return formatDate(dateObject);
-  };
-
   return (
     <>
       <h3>Graph</h3>
-      <form onSubmit={handleSubmit}>
-        <h5>Date Range</h5>
-        <label htmlFor="startDate">Start date: </label>
-        <input type="date" id="startDate" name="startDate" />{" "}
-        <label htmlFor="endDate">End date: </label>
-        <input type="date" id="endDate" name="endDate" /> <button>Save</button>
-        <button type="button" onClick={() => setData([...rates])}>
-          Show All Data
-        </button>
-      </form>
-
       <LineChart
         dataset={data}
         xAxis={[
@@ -84,6 +73,17 @@ const Graph = () => {
         grid={{ horizontal: true }}
         height={400}
       />
+
+      <form onSubmit={handleSubmit}>
+        <h5>Date Range</h5>
+        <label htmlFor="startDate">Start date: </label>
+        <input type="date" id="startDate" name="startDate" />{" "}
+        <label htmlFor="endDate">End date: </label>
+        <input type="date" id="endDate" name="endDate" /> <button>Save</button>
+        <button type="button" onClick={() => setData([...rates])}>
+          Show All Data
+        </button>
+      </form>
     </>
   );
 };
