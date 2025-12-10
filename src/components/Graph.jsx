@@ -4,16 +4,18 @@ import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Graph = () => {
-  const { targetRate, setTargetRate, rates } = useContext(AppContext);
+  const { pets, selectedPet, rates } = useContext(AppContext);
 
   const [data, setData] = useState([...rates]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // Default values
     let startDate = new Date();
     let endDate = new Date();
 
+    // Update value if user chooses dates
     if (event.target.startDate.value) {
       startDate = new Date(event.target.startDate.value);
     }
@@ -29,10 +31,6 @@ const Graph = () => {
     );
   };
 
-  const showAllData = () => {
-    setData([...rates]);
-  };
-
   const valueFormatter = (value) => {
     const dateObject = new Date(value);
     return formatDate(dateObject);
@@ -41,22 +39,6 @@ const Graph = () => {
   return (
     <>
       <h3>Graph</h3>
-      <i>
-        Target Rate:{" "}
-        <input
-          type="number"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          min="1"
-          max="999"
-          value={targetRate}
-          onChange={(event) => setTargetRate(event.target.value)}
-        />{" "}
-        breaths/minute
-      </i>
-      <br />
-      <br />
-
       <form onSubmit={handleSubmit}>
         <h5>Date Range</h5>
         <label htmlFor="startDate">Start date: </label>
@@ -94,7 +76,7 @@ const Graph = () => {
             label: "Breathing Rate",
             colorMap: {
               type: "piecewise",
-              thresholds: [targetRate],
+              thresholds: [pets[selectedPet].targetRate],
               colors: ["Green", "Coral"],
             },
           },

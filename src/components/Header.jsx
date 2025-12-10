@@ -2,10 +2,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { IconButton } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { AppContext } from "../contexts/AppContext";
 
 const Header = () => {
+  const { pets, selectedPet, setSelectedPet } = useContext(AppContext);
+
+  // Menu logic
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -13,6 +17,18 @@ const Header = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const options = pets.map((pet, index) => {
+    return (
+      <option key={index} value={index}>
+        {pet.name}
+      </option>
+    );
+  });
+
+  const handleSelectChange = (event) => {
+    setSelectedPet(event.target.value);
   };
 
   return (
@@ -45,7 +61,14 @@ const Header = () => {
         <Link to="/data">
           <MenuItem onClick={handleClose}>Data</MenuItem>
         </Link>
+        <Link to="/pets">
+          <MenuItem onClick={handleClose}>Pets</MenuItem>
+        </Link>
       </Menu>
+      <br />
+      <select value={selectedPet} onChange={handleSelectChange}>
+        {options}
+      </select>
     </>
   );
 };

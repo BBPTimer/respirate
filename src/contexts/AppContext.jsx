@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material";
 import { createContext, useState } from "react";
+import Pet from "../classes/Pet";
 
 export const AppContext = createContext();
 
@@ -17,15 +18,18 @@ export const AppContextProvider = ({ children }) => {
     },
   });
 
-  const [targetRate, setTargetRate] = useState(100);
+  const [pets, setPets] = useState([new Pet("Dean", 40), new Pet("Ted", 30)]);
+  const [selectedPet, setSelectedPet] = useState(0);
   const [rates, setRates] = useState([]);
 
   return (
     <AppContext.Provider
       value={{
         theme,
-        targetRate,
-        setTargetRate,
+        pets,
+        selectedPet,
+        setSelectedPet,
+        setPets,
         rates,
         setRates,
       }}

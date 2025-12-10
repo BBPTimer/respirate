@@ -5,7 +5,7 @@ import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Data = () => {
-  const { targetRate, rates, setRates } = useContext(AppContext);
+  const { pets, selectedPet, rates, setRates } = useContext(AppContext);
 
   const columns = [
     {
@@ -63,7 +63,7 @@ const Data = () => {
           name="rate"
           min="1"
           max="999"
-          defaultValue={targetRate}
+          defaultValue={pets[selectedPet].targetRate}
           required
         ></input>
         <i>
@@ -88,7 +88,7 @@ const Data = () => {
         sx={{ border: 0 }}
         // Row conditional styling
         getRowClassName={(params) =>
-          params.row.rate >= targetRate ? "coral" : "green"
+          params.row.rate >= pets[selectedPet].targetRate ? "coral" : "green"
         }
         // Toolbar settings
         showToolbar
