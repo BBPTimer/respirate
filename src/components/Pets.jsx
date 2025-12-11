@@ -29,7 +29,7 @@ const Pets = () => {
     event.preventDefault();
 
     // Check if pet already exists
-    for(let pet of pets) {
+    for (let pet of pets) {
       if (event.target.name.value === pet.name) {
         alert(event.target.name.value + " already exists.");
         return;

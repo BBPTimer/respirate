@@ -4,7 +4,7 @@ import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Data = () => {
-  const { pets, selectedPet, addRate } = useContext(AppContext);
+  const { pets, setPets, selectedPet, addRate } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
@@ -21,6 +21,35 @@ const Data = () => {
     addRate(parseInt(event.target.rate.value), date);
   };
 
+  const handleDeleteRate = (params) => {
+    // Loop through rate history
+    for (let [index, rate] of pets[selectedPet].rateHistory.entries()) {
+      // Identify index of rate to delete
+      if (params.id === rate.timestamp) {
+        deleteRate(index);
+      }
+    }
+  };
+
+  const deleteRate = (index) => {
+    // Copy existing rate history
+    let updatedRateHistory = [...pets[selectedPet].rateHistory];
+
+    // Delete rate
+    updatedRateHistory.splice(index, 1);
+
+    // Sort new rates array by timestamp
+    updatedRateHistory.sort((a, b) => a.timestamp - b.timestamp);
+
+    // Copy existing pets array
+    let updatedPets = [...pets];
+    // Update pets array with new rate history
+    updatedPets[selectedPet].rateHistory = updatedRateHistory;
+
+    // Update rates
+    setPets(updatedPets);
+  };
+
   const columns = [
     {
       field: "rate",
@@ -35,6 +64,19 @@ const Data = () => {
       valueFormatter: (value) => formatDate(value),
       headerName: "Timestamp",
       width: 180,
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
+      width: 75,
+      renderCell: (params) => (
+        <button key={params.id} onClick={() => handleDeleteRate(params)}>
+          Delete
+        </button>
+      ),
     },
   ];
 
