@@ -19,10 +19,13 @@ const Data = () => {
     }
 
     addRate(parseInt(event.target.rate.value), date);
+
+    // Close form
+    setDisplayForm(false);
   };
 
   const handleDeleteRate = (params) => {
-    if(!confirm("Delete rate from " + formatDate(params.id) + "?")) {
+    if (!confirm("Delete rate from " + formatDate(params.id) + "?")) {
       return;
     }
 

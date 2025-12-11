@@ -30,6 +30,7 @@ const Pets = () => {
     let updatedPets = [...pets];
     updatedPets.splice(index, 1);
     setPets(updatedPets);
+    setSelectedPet(0);
   };
 
   const handleAdd = (event) => {
@@ -50,8 +51,8 @@ const Pets = () => {
     setPets(updatedPets);
     setSelectedPet(updatedPets.length - 1);
 
-    // Clear form
-    event.target.reset();
+    // Close form
+    setDisplayForm(false);
   };
 
   const rows = pets.map((pet, index) => {
