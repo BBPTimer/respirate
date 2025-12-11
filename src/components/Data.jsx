@@ -1,15 +1,14 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useContext, useState } from "react";
-import Rate from "../classes/Rate";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Data = () => {
-  const { pets, setPets, selectedPet } = useContext(AppContext);
+  const { pets, selectedPet, addRate } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleAddRate = (event) => {
     // Prevent form submission
     event.preventDefault();
 
@@ -19,36 +18,7 @@ const Data = () => {
       date = new Date(event.target.timestamp.value);
     }
 
-    // Copy existing rate history
-    let updatedRateHistory = [...pets[selectedPet].rateHistory];
-
-    // Add new rate
-    updatedRateHistory.push(
-      new Rate(
-        // Convert rate from string to integer
-        parseInt(event.target.rate.value),
-        date
-      )
-    );
-
-    // Sort new rates array by timestamp
-    updatedRateHistory.sort((a, b) => a.timestamp - b.timestamp);
-
-    // Copy existing pets array
-    let updatedPets = [...pets];
-    // Update pets array with new rate history
-    updatedPets[selectedPet].rateHistory = updatedRateHistory;
-
-    // Update rates
-    setPets(updatedPets);
-
-    // Alert user of rate
-    alert(
-      event.target.rate.value +
-        " breaths/minute added to " + pets[selectedPet].name + "'s rate history on " +
-        formatDate(date) +
-        "."
-    );
+    addRate(parseInt(event.target.rate.value), date);
   };
 
   const columns = [
@@ -74,7 +44,7 @@ const Data = () => {
       <button onClick={() => setDisplayForm(!displayForm)}>Add Rate</button>
       <br />
       {displayForm && (
-        <form className="white-bg" onSubmit={handleSubmit}>
+        <form className="white-bg" onSubmit={handleAddRate}>
           <input
             type="number"
             inputMode="numeric"

@@ -17,6 +17,7 @@ const Pets = () => {
   };
 
   const handleDelete = (event, index) => {
+    // TODO: Finish logic
     confirm(
       "This will delete all history for " + pets[index].name + ". Proceed?"
     );
@@ -39,7 +40,7 @@ const Pets = () => {
 
   const rows = pets.map((pet, index) => {
     return (
-      <div  key={index} className="white-bg">
+      <div key={index} className="white-bg">
         <form onSubmit={(event) => handleSave(event, index)}>
           <label htmlFor="name">Name: </label>
           <input id="name" name="name" defaultValue={pet.name} required />

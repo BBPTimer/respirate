@@ -1,12 +1,10 @@
 import { useContext, useRef, useState } from "react";
-import Rate from "../classes/Rate";
 import { AppContext } from "../contexts/AppContext";
-import { formatDate } from "../common/utils";
 
 const Timer = () => {
   const timerDuration = 5;
 
-  const { rates, setRates } = useContext(AppContext);
+  const { addRate } = useContext(AppContext);
 
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [seconds, setSeconds] = useState(timerDuration);
@@ -38,18 +36,10 @@ const Timer = () => {
       // Stop timer
       clearInterval(interval.current);
       setIsTimerRunning(false);
+
       // Add rate to history
-      setRates([
-        ...rates,
-        new Rate((60 / timerDuration) * refTaps.current, initialDate),
-      ]);
-      // Alert user of rate
-      alert(
-        (60 / timerDuration) * refTaps.current +
-          " breaths/minute added to rate history on " +
-          formatDate(initialDate) +
-          "."
-      );
+      addRate((60 / timerDuration) * refTaps.current, initialDate);
+
       // Reset timer
       setSeconds(timerDuration);
       // Reset taps
