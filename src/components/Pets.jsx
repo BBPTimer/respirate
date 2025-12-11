@@ -29,6 +29,11 @@ const Pets = () => {
 
     let updatedPets = [...pets];
     updatedPets.splice(index, 1);
+
+    if (updatedPets.length === 0) {
+      updatedPets.push(new Pet("My First Pet", 30));
+    }
+
     setPets(updatedPets);
     setSelectedPet(0);
   };
