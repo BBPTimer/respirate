@@ -18,11 +18,18 @@ const Pets = () => {
     alert("Pet saved.");
   };
 
-  const handleDelete = (event, index) => {
-    // TODO: Finish logic
-    confirm(
-      "This will delete all history for " + pets[index].name + ". Proceed?"
-    );
+  const handleDelete = (index) => {
+    if (
+      !confirm(
+        "This will delete all history for " + pets[index].name + ". Proceed?"
+      )
+    ) {
+      return;
+    }
+
+    let updatedPets = [...pets];
+    updatedPets.splice(index, 1);
+    setPets(updatedPets);
   };
 
   const handleAdd = (event) => {
@@ -52,11 +59,18 @@ const Pets = () => {
       <div key={index} className="white-bg">
         <form onSubmit={(event) => handleSave(event, index)}>
           <label htmlFor="name">Name: </label>
-          <input id="name" name="name" defaultValue={pet.name} required />
+          <input
+            key={pet.name}
+            id="name"
+            name="name"
+            defaultValue={pet.name}
+            required
+          />
           <br />
           <br />
           <label htmlFor="targetRate">Target rate: </label>
           <input
+            key={pet.name + "Rate"}
             id="targetRate"
             name="targetRate"
             type="number"
@@ -72,7 +86,7 @@ const Pets = () => {
           <br />
           <button>Save</button>
         </form>
-        <button onClick={(event) => handleDelete(event, index)}>Delete</button>
+        <button onClick={() => handleDelete(index)}>Delete</button>
       </div>
     );
   });
