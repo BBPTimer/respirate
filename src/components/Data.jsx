@@ -22,6 +22,10 @@ const Data = () => {
   };
 
   const handleDeleteRate = (params) => {
+    if(!confirm("Delete rate from " + formatDate(params.id) + "?")) {
+      return;
+    }
+
     // Loop through rate history
     for (let [index, rate] of pets[selectedPet].rateHistory.entries()) {
       // Identify index of rate to delete
@@ -121,6 +125,7 @@ const Data = () => {
         }}
         // Table styling
         sx={{ border: 1, borderColor: "lightgray", borderRadius: "5px" }}
+        disableRowSelectionOnClick
         // Row conditional styling
         getRowClassName={(params) =>
           params.row.rate >= pets[selectedPet].targetRate ? "coral" : "green"
