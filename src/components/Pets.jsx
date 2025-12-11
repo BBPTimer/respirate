@@ -3,7 +3,7 @@ import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
 
 const Pets = () => {
-  const { pets, setPets } = useContext(AppContext);
+  const { pets, setPets, setSelectedPet } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
@@ -14,6 +14,8 @@ const Pets = () => {
     updatedPets[index].name = event.target.name.value;
     updatedPets[index].targetRate = event.target.targetRate.value;
     setPets(updatedPets);
+
+    alert("Pet saved.");
   };
 
   const handleDelete = (event, index) => {
@@ -26,16 +28,23 @@ const Pets = () => {
   const handleAdd = (event) => {
     event.preventDefault();
 
+    // Check if pet already exists
+    for(let pet of pets) {
+      if (event.target.name.value === pet.name) {
+        alert(event.target.name.value + " already exists.");
+        return;
+      }
+    }
+
     let updatedPets = [...pets];
     updatedPets.push(
       new Pet(event.target.name.value, event.target.targetRate.value)
     );
     setPets(updatedPets);
+    setSelectedPet(updatedPets.length - 1);
 
     // Clear form
     event.target.reset();
-
-    alert("Pet saved.");
   };
 
   const rows = pets.map((pet, index) => {
