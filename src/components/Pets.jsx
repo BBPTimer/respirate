@@ -33,12 +33,14 @@ const Pets = () => {
 
     // Clear form
     event.target.reset();
+
+    alert("Pet saved.");
   };
 
   const rows = pets.map((pet, index) => {
     return (
-      <div className="white-bg">
-        <form key={index} onSubmit={(event) => handleSave(event, index)}>
+      <div  key={index} className="white-bg">
+        <form onSubmit={(event) => handleSave(event, index)}>
           <label htmlFor="name">Name: </label>
           <input id="name" name="name" defaultValue={pet.name} required />
           <br />

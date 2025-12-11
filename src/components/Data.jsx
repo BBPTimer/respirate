@@ -5,7 +5,7 @@ import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Data = () => {
-  const { pets, selectedPet, rates, setRates } = useContext(AppContext);
+  const { pets, setPets, selectedPet } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
@@ -19,11 +19,11 @@ const Data = () => {
       date = new Date(event.target.timestamp.value);
     }
 
-    // Copy existing rates array
-    let newRates = [...rates];
+    // Copy existing rate history
+    let updatedRateHistory = [...pets[selectedPet].rateHistory];
 
     // Add new rate
-    newRates.push(
+    updatedRateHistory.push(
       new Rate(
         // Convert rate from string to integer
         parseInt(event.target.rate.value),
@@ -32,15 +32,20 @@ const Data = () => {
     );
 
     // Sort new rates array by timestamp
-    newRates.sort((a, b) => a.timestamp - b.timestamp);
+    updatedRateHistory.sort((a, b) => a.timestamp - b.timestamp);
+
+    // Copy existing pets array
+    let updatedPets = [...pets];
+    // Update pets array with new rate history
+    updatedPets[selectedPet].rateHistory = updatedRateHistory;
 
     // Update rates
-    setRates(newRates);
+    setPets(updatedPets);
 
     // Alert user of rate
     alert(
       event.target.rate.value +
-        " breaths/minute added to rate history on " +
+        " breaths/minute added to " + pets[selectedPet].name + "'s rate history on " +
         formatDate(date) +
         "."
     );
@@ -94,7 +99,7 @@ const Data = () => {
       <DataGrid
         // Data
         columns={columns}
-        rows={rates}
+        rows={pets[selectedPet].rateHistory}
         getRowId={(row) => row.timestamp}
         // Initial sort
         initialState={{
