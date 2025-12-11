@@ -1,11 +1,13 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Rate from "../classes/Rate";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Data = () => {
   const { pets, selectedPet, rates, setRates } = useContext(AppContext);
+
+  const [displayForm, setDisplayForm] = useState(false);
 
   const handleSubmit = (event) => {
     // Prevent form submission
@@ -64,29 +66,30 @@ const Data = () => {
   return (
     <>
       <h3>Data</h3>
-      <form className="white-bg" onSubmit={handleSubmit}>
-        <b>Add Rate</b>
-        <br />
-        <br />
-        <input
-          type="number"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          id="rate"
-          name="rate"
-          min="1"
-          max="999"
-          defaultValue={pets[selectedPet].targetRate}
-          required
-        ></input>
-        <label htmlFor="rate"> breaths/minute</label>
-        <br />
-        <label htmlFor="timestamp">at </label>
-        <input type="datetime-local" id="timestamp" name="timestamp" />
-        <br />
-        <br />
-        <button>Add</button>
-      </form>
+      <button onClick={() => setDisplayForm(!displayForm)}>Add Rate</button>
+      <br />
+      {displayForm && (
+        <form className="white-bg" onSubmit={handleSubmit}>
+          <input
+            type="number"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            id="rate"
+            name="rate"
+            min="1"
+            max="999"
+            defaultValue={pets[selectedPet].targetRate}
+            required
+          ></input>
+          <label htmlFor="rate"> breaths/minute</label>
+          <br />
+          <label htmlFor="timestamp">at </label>
+          <input type="datetime-local" id="timestamp" name="timestamp" />
+          <br />
+          <br />
+          <button>Add</button>
+        </form>
+      )}
       <br />
       <DataGrid
         // Data

@@ -7,6 +7,7 @@ const Graph = () => {
   const { pets, selectedPet, rates } = useContext(AppContext);
 
   const [data, setData] = useState([...rates]);
+  const [displayForm, setDisplayForm] = useState(false);
 
   const valueFormatter = (value) => {
     const dateObject = new Date(value);
@@ -79,10 +80,9 @@ const Graph = () => {
           borderRadius: "5px",
         }}
       />
-      <form className="white-bg" onSubmit={handleSubmit}>
-        <b>Date Range</b>
-        <br />
-        <br />
+      <br />
+      <button onClick={() => setDisplayForm(!displayForm)}>Date Range</button>
+      {displayForm && <form className="white-bg" onSubmit={handleSubmit}>
         <label htmlFor="startDate">Start date: </label>
         <input type="date" id="startDate" name="startDate" />
         <br />
@@ -94,7 +94,8 @@ const Graph = () => {
         <button type="button" onClick={() => setData([...rates])}>
           Show All Data
         </button>
-      </form>
+      </form>}
+      <br />
     </>
   );
 };
