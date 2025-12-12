@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material";
+import { grey, red } from "@mui/material/colors";
 import { createContext, useState } from "react";
 import Rate from "../classes/Rate";
 import { formatDate } from "../common/utils";
@@ -17,16 +18,9 @@ export const AppContextProvider = ({ children }) => {
         "sans-serif",
       ].join(","),
     },
-    components: {
-      MuiBottomNavigationAction: {
-        styleOverrides: {
-          root: {
-            "&.Mui-selected": {
-              color: "red",
-            },
-          },
-        },
-      },
+    palette: {
+      primary: red,
+      secondary: grey,
     },
   });
 

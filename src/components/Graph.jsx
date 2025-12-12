@@ -71,7 +71,7 @@ const Graph = () => {
             colorMap: {
               type: "piecewise",
               thresholds: [pets[selectedPet].targetRate],
-              colors: ["Green", "Coral"],
+              colors: ["Green", "Red"],
             },
           },
         ]}

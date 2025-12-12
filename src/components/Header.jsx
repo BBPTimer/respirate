@@ -1,3 +1,4 @@
+import { FormControl, MenuItem, Select } from "@mui/material";
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 
@@ -6,9 +7,9 @@ const Header = () => {
 
   const options = pets.map((pet, index) => {
     return (
-      <option key={index} value={index}>
+      <MenuItem key={index} value={index}>
         {pet.name}
-      </option>
+      </MenuItem>
     );
   });
 
@@ -17,9 +18,11 @@ const Header = () => {
   };
 
   return (
-    <select value={selectedPet} onChange={handleSelectChange}>
-      {options}
-    </select>
+    <FormControl variant="standard" size="small">
+      <Select value={selectedPet} onChange={handleSelectChange}>
+        {options}
+      </Select>
+    </FormControl>
   );
 };
 

@@ -146,7 +146,7 @@ const Data = () => {
         disableRowSelectionOnClick
         // Row conditional styling
         getRowClassName={(params) =>
-          params.row.rate >= pets[selectedPet].targetRate ? "coral" : "green"
+          params.row.rate >= pets[selectedPet].targetRate ? "red" : "green"
         }
         // Toolbar settings
         showToolbar
