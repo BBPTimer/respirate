@@ -7,7 +7,7 @@ import { Link } from "react-router";
 import { AppContext } from "../contexts/AppContext";
 
 const Header = () => {
-  const { pets, selectedPet, setSelectedPet } = useContext(AppContext);
+  const { pets, selectedPet, storeselectedPet } = useContext(AppContext);
 
   // Menu logic
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,7 +28,7 @@ const Header = () => {
   });
 
   const handleSelectChange = (event) => {
-    setSelectedPet(event.target.value);
+    storeselectedPet(event.target.value);
   };
 
   return (

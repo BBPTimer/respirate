@@ -30,7 +30,14 @@ export const AppContextProvider = ({ children }) => {
     localStorage.setItem("pets", JSON.stringify(pets));
   };
 
-  const [selectedPet, setSelectedPet] = useState(0);
+  const [selectedPet, setSelectedPet] = useState(
+    localStorage.getItem("selectedPet") || 0
+  );
+
+  const storeselectedPet = (index) => {
+    setSelectedPet(index);
+    localStorage.setItem("selectedPet", index);
+  };
 
   const addRate = (rate, date) => {
     // Copy existing rate history
@@ -70,6 +77,7 @@ export const AppContextProvider = ({ children }) => {
         storePets,
         selectedPet,
         setSelectedPet,
+        storeselectedPet,
         addRate,
       }}
     >

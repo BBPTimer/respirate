@@ -3,7 +3,7 @@ import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
 
 const Pets = () => {
-  const { pets, storePets, setSelectedPet } = useContext(AppContext);
+  const { pets, storePets, storeselectedPet } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
@@ -35,7 +35,7 @@ const Pets = () => {
     }
 
     storePets(updatedPets);
-    setSelectedPet(0);
+    storeselectedPet(0);
   };
 
   const handleAdd = (event) => {
@@ -54,7 +54,7 @@ const Pets = () => {
       new Pet(event.target.name.value, event.target.targetRate.value)
     );
     storePets(updatedPets);
-    setSelectedPet(updatedPets.length - 1);
+    storeselectedPet(updatedPets.length - 1);
 
     // Close form
     setDisplayForm(false);
