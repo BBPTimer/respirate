@@ -90,6 +90,21 @@ const Data = () => {
   return (
     <>
       <h3>Data</h3>
+      <a
+        href={URL.createObjectURL(
+          new Blob([JSON.stringify(pets)], {
+            type: "application/json",
+          })
+        )}
+        download={"petData"}
+      >
+        <button onClick={() => localStorage.setItem("lastBackup", new Date())}>
+          Back Up Data
+        </button>
+      </a>
+      <button>Restore Data</button>
+      <br />
+      <br />
       <button onClick={() => setDisplayForm(!displayForm)}>Add Rate</button>
       <br />
       {displayForm && (
