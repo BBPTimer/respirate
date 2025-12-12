@@ -96,7 +96,7 @@ const Data = () => {
             type: "application/json",
           })
         )}
-        download={"petData"}
+        download={"respirateBackup"}
       >
         <button onClick={() => localStorage.setItem("lastBackup", new Date())}>
           Back Up Data

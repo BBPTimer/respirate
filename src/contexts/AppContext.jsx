@@ -17,6 +17,17 @@ export const AppContextProvider = ({ children }) => {
         "sans-serif",
       ].join(","),
     },
+    components: {
+      MuiBottomNavigationAction: {
+        styleOverrides: {
+          root: {
+            "&.Mui-selected": {
+              color: "red",
+            },
+          },
+        },
+      },
+    },
   });
 
   const [pets, setPets] = useState(
