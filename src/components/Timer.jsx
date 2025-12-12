@@ -1,24 +1,50 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
+import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Timer = () => {
-  const timerDuration = 5;
-
   const { addRate } = useContext(AppContext);
 
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [seconds, setSeconds] = useState(timerDuration);
+  const reminderDays = 30;
+  // Initialize React Router navigator
+  const navigate = useNavigate();
+  // Prompt user to back up data and redirect user to Data component
+  const backupReminder = () => {
+    // If user has no lastBackup in local storage, set to today
+    if (!localStorage.getItem("lastBackup")) {
+      localStorage.setItem("lastBackup", new Date());
+    }
+    // Get lastBackup from local storage
+    const lastBackup = new Date(localStorage.getItem("lastBackup"));
+    // Compare last backup date to today
+    if (new Date() - lastBackup > reminderDays * 24 * 60 * 60 * 1000) {
+      // Alert user to backup data
+      alert(
+        "Data last backed up on " +
+          formatDate(lastBackup) +
+          ". We recommend backing up your data regularly!"
+      );
+      // Redirect to Data component
+      navigate("/data");
+      // Update lastBackup in local storage to today
+      localStorage.setItem("lastBackup", new Date());
+    }
+  };
+  // Run backup reminder on first render
+  useEffect(backupReminder, []);
+
   const [stateTaps, setStateTaps] = useState(0);
-
   const refTaps = useRef(0);
-  const interval = useRef();
-
-  let initialDate;
 
   const updateTaps = (newTaps) => {
     refTaps.current = newTaps;
     setStateTaps(newTaps);
   };
+
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const interval = useRef();
+  let initialDate;
 
   const initializeTimer = () => {
     setIsTimerRunning(true);
@@ -27,6 +53,9 @@ const Timer = () => {
     initialDate = new Date();
     interval.current = setInterval(timer, 100);
   };
+
+  const timerDuration = 30;
+  const [seconds, setSeconds] = useState(timerDuration);
 
   const timer = () => {
     const currentDate = new Date();
