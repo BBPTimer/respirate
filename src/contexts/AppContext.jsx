@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material";
 import { grey, red } from "@mui/material/colors";
 import { createContext, useState } from "react";
 import { formatDate } from "../common/utils";
+import Rate from "../classes/Rate";
 
 export const AppContext = createContext();
 
@@ -48,7 +49,7 @@ export const AppContextProvider = ({ children }) => {
     let updatedRateHistory = [...pets[selectedPet].rateHistory];
 
     // Add new rate
-    updatedRateHistory.push({rate: rate, timestamp: date});
+    updatedRateHistory.push(new Rate(rate, date.toString()));
 
     // Sort new rates array by timestamp
     updatedRateHistory.sort((a, b) => a.timestamp - b.timestamp);
@@ -70,6 +71,8 @@ export const AppContextProvider = ({ children }) => {
         formatDate(date) +
         "."
     );
+
+    console.log(updatedPets);
   };
 
   return (
