@@ -3,7 +3,7 @@ import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
 
 const Pets = () => {
-  const { pets, setPets, setSelectedPet } = useContext(AppContext);
+  const { pets, storePets, setSelectedPet } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
@@ -13,7 +13,7 @@ const Pets = () => {
     let updatedPets = [...pets];
     updatedPets[index].name = event.target.name.value;
     updatedPets[index].targetRate = event.target.targetRate.value;
-    setPets(updatedPets);
+    storePets(updatedPets);
 
     alert("Pet saved.");
   };
@@ -34,7 +34,7 @@ const Pets = () => {
       updatedPets.push(new Pet("My First Pet", 30));
     }
 
-    setPets(updatedPets);
+    storePets(updatedPets);
     setSelectedPet(0);
   };
 
@@ -53,7 +53,7 @@ const Pets = () => {
     updatedPets.push(
       new Pet(event.target.name.value, event.target.targetRate.value)
     );
-    setPets(updatedPets);
+    storePets(updatedPets);
     setSelectedPet(updatedPets.length - 1);
 
     // Close form

@@ -4,7 +4,7 @@ import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 
 const Data = () => {
-  const { pets, setPets, selectedPet, addRate } = useContext(AppContext);
+  const { pets, storePets, selectedPet, addRate } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
@@ -54,7 +54,7 @@ const Data = () => {
     updatedPets[selectedPet].rateHistory = updatedRateHistory;
 
     // Update rates
-    setPets(updatedPets);
+    storePets(updatedPets);
   };
 
   const columns = [

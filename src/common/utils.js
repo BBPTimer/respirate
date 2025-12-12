@@ -1,5 +1,8 @@
 const formatDate = (date) => {
-  return date.toDateString() + " " + date.toTimeString().substring(0, 8);
+  let dateObject = new Date(date);
+  return (
+    dateObject.toDateString() + " " + dateObject.toTimeString().substring(0, 8)
+  );
 };
 
 export { formatDate };
