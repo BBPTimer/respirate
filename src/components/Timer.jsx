@@ -1,3 +1,5 @@
+import { Replay } from "@mui/icons-material";
+import { IconButton, Tooltip } from "@mui/material";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { formatDate } from "../common/utils";
@@ -57,6 +59,16 @@ const Timer = () => {
   const timerDuration = 30;
   const [seconds, setSeconds] = useState(timerDuration);
 
+  const reset = () => {
+    // Stop timer
+    clearInterval(interval.current);
+    setIsTimerRunning(false);
+    // Reset timer
+    setSeconds(timerDuration);
+    // Reset taps
+    updateTaps(0);
+  };
+
   const timer = () => {
     const currentDate = new Date();
     const deltaDate = (currentDate - initialDate) / 1000;
@@ -64,23 +76,12 @@ const Timer = () => {
     if (timerDuration - deltaDate < 0) {
       // Stop timer
       clearInterval(interval.current);
-      setIsTimerRunning(false);
 
       // Add rate to history
       addRate((60 / timerDuration) * refTaps.current, initialDate);
 
-      // Reset timer
-      setSeconds(timerDuration);
-      // Reset taps
-      updateTaps(0);
+      reset();
     }
-  };
-
-  const reset = () => {
-    setIsTimerRunning(false);
-    setSeconds(0);
-    updateTaps(0);
-    clearInterval(interval.current);
   };
 
   return (
@@ -103,7 +104,11 @@ const Timer = () => {
         <i>Tap Count:</i> {stateTaps}
         <br />
         <br />
-        <button onClick={reset}>Reset</button>
+        <Tooltip title="Reset">
+          <IconButton onClick={reset}>
+            <Replay />
+          </IconButton>
+        </Tooltip>
       </div>
     </>
   );
