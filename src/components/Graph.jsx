@@ -1,4 +1,7 @@
+import { CalendarMonth, EditCalendar, Save } from "@mui/icons-material";
+import { Button, ButtonGroup } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { useContext, useEffect, useState } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
@@ -85,23 +88,52 @@ const Graph = () => {
         }}
       />
       <br />
-      <button onClick={() => setDisplayForm(!displayForm)}>Date Range</button>
+      <Button
+        variant="contained"
+        size="small"
+        disableElevation
+        onClick={() => setDisplayForm(!displayForm)}
+        startIcon={<EditCalendar />}
+      >
+        Date Range
+      </Button>
       {displayForm && (
         <form className="white-bg" onSubmit={handleDateRange}>
-          <label htmlFor="startDate">Start date: </label>
-          <input type="date" id="startDate" name="startDate" />
+          <MobileDatePicker
+            label="Start Date"
+            disableFuture
+            name="startDate"
+            slotProps={{ textField: { size: "small", required: true } }}
+          />
           <br />
-          <label htmlFor="endDate">End date: </label>
-          <input type="date" id="endDate" name="endDate" />
+          <br />
+          <MobileDatePicker
+            label="End Date"
+            disableFuture
+            name="endDate"
+            slotProps={{ textField: { size: "small", required: true } }}
+          />
           <br />
           <br />
-          <button>Save</button>
-          <button
-            type="button"
-            onClick={() => setData([...pets[selectedPet].rateHistory])}
-          >
-            Show All Data
-          </button>
+          <ButtonGroup>
+            <Button
+              type="submit"
+              variant="contained"
+              disableElevation
+              size="small"
+              startIcon={<Save />}
+            >
+              Save
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => setData([...pets[selectedPet].rateHistory])}
+              size="small"
+              startIcon={<CalendarMonth />}
+            >
+              Show All Data
+            </Button>
+          </ButtonGroup>
         </form>
       )}
       <br />
