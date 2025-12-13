@@ -28,7 +28,7 @@ export const AppContextProvider = ({ children }) => {
   const parseDataString = (dataString) => {
     // Return generic pet if no data found in local storage
     if (!dataString) {
-      return new Pet("My First Pet", 30);
+      return [new Pet("My First Pet", 30)];
     }
 
     // Convert string to JSON

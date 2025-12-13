@@ -1,3 +1,5 @@
+import { AddCircle } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
@@ -110,7 +112,15 @@ const Pets = () => {
       <h3>Pets</h3>
       <AutohideSnackbar />
       {rows}
-      <button onClick={() => setDisplayForm(!displayForm)}>Add Pet</button>
+      <Button
+        variant="contained"
+        size="small"
+        disableElevation
+        onClick={() => setDisplayForm(!displayForm)}
+        startIcon={<AddCircle />}
+      >
+        Add Pet
+      </Button>
       <br />
       {displayForm && (
         <form className="white-bg" onSubmit={handleAdd}>
