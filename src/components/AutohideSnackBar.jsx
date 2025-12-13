@@ -15,8 +15,8 @@ const AutohideSnackbar = () => {
       open={isSnackbarOpen}
       autoHideDuration={5000}
       onClose={handleClose}
-      message={snackbarMessage.current}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      message={snackbarMessage}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
     />
   );
 };

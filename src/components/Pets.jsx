@@ -1,9 +1,16 @@
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
+import AutohideSnackbar from "./AutohideSnackBar";
 
 const Pets = () => {
-  const { pets, storePets, storeselectedPet } = useContext(AppContext);
+  const {
+    pets,
+    storePets,
+    storeselectedPet,
+    setIsSnackbarOpen,
+    setSnackbarMessage,
+  } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
@@ -15,7 +22,8 @@ const Pets = () => {
     updatedPets[index].targetRate = event.target.targetRate.value;
     storePets(updatedPets);
 
-    alert("Pet saved.");
+    setSnackbarMessage("Pet saved.");
+    setIsSnackbarOpen(true);
   };
 
   const handleDelete = (index) => {
@@ -100,6 +108,7 @@ const Pets = () => {
   return (
     <>
       <h3>Pets</h3>
+      <AutohideSnackbar />
       {rows}
       <button onClick={() => setDisplayForm(!displayForm)}>Add Pet</button>
       <br />
