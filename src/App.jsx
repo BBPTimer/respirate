@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { Box } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useContext } from "react";
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router";
 import "./App.css";
@@ -22,14 +24,16 @@ function App() {
           {/* Fix Nav overlap */}
           <Box paddingBottom="56px">
             <Header />
-            <Routes>
-              <Route path="/" element={<Timer />} />
-              <Route path="/data" element={<Data />} />
-              <Route path="/graph" element={<Graph />} />
-              <Route path="/pets" element={<Pets />} />
-              <Route path="/about" element={<About />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Routes>
+                <Route path="/" element={<Timer />} />
+                <Route path="/data" element={<Data />} />
+                <Route path="/graph" element={<Graph />} />
+                <Route path="/pets" element={<Pets />} />
+                <Route path="/about" element={<About />} />
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </LocalizationProvider>
           </Box>
           <Nav />
         </Router>

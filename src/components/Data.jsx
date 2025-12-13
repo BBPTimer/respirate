@@ -1,7 +1,19 @@
+import { AddCircle, CloudUpload, Save } from "@mui/icons-material";
+import {
+  Button,
+  ButtonGroup,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  Tooltip,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
+import BackUpButton from "./BackUpButton";
 
 const Data = () => {
   const { pets, storePets, selectedPet, addRate } = useContext(AppContext);
@@ -90,43 +102,60 @@ const Data = () => {
   return (
     <>
       <h3>Data</h3>
-      <a
-        href={URL.createObjectURL(
-          new Blob([JSON.stringify(pets)], {
-            type: "application/json",
-          })
-        )}
-        download={"respirateBackup"}
+      <ButtonGroup>
+        <BackUpButton />
+        <Button variant="outlined" size="small" startIcon={<CloudUpload />}>
+          Restore Data
+        </Button>
+      </ButtonGroup>
+      <br />
+      <br />
+      <Button
+        variant="contained"
+        size="small"
+        disableElevation
+        onClick={() => setDisplayForm(!displayForm)}
+        startIcon={<AddCircle />}
       >
-        <button onClick={() => localStorage.setItem("lastBackup", new Date())}>
-          Back Up Data
-        </button>
-      </a>
-      <button>Restore Data</button>
-      <br />
-      <br />
-      <button onClick={() => setDisplayForm(!displayForm)}>Add Rate</button>
+        Add Rate
+      </Button>
       <br />
       {displayForm && (
         <form className="white-bg" onSubmit={handleAddRate}>
-          <input
-            type="number"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            id="rate"
-            name="rate"
-            min="1"
-            max="999"
+          <OutlinedInput
             defaultValue={pets[selectedPet].targetRate}
+            endAdornment={
+              <InputAdornment position="end">breaths/minute</InputAdornment>
+            }
+            name="rate"
+            type="number"
             required
-          ></input>
-          <label htmlFor="rate"> breaths/minute</label>
+            size="small"
+            slotProps={{
+              input: {
+                inputMode: "numeric",
+                pattern: "[0-9]*",
+                min: "1",
+                max: "999",
+              },
+            }}
+            sx={{ width: "180px" }}
+          />
+          {" at"}
           <br />
-          <label htmlFor="timestamp">at </label>
-          <input type="datetime-local" id="timestamp" name="timestamp" />
           <br />
-          <br />
-          <button>Add</button>
+          <MobileDateTimePicker
+            defaultValue={dayjs(new Date())}
+            disableFuture
+            name="timestamp"
+            slotProps={{ textField: { size: "small", required: true } }}
+            views={["year", "day", "hours", "minutes"]}
+          />{" "}
+          <Tooltip title="Add">
+            <IconButton type="submit">
+              <Save color="primary" />
+            </IconButton>
+          </Tooltip>
         </form>
       )}
       <br />
