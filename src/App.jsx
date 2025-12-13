@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
+import { Box } from "@mui/material";
 import { useContext } from "react";
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router";
 import "./App.css";
@@ -18,15 +19,18 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Timer />} />
-            <Route path="/data" element={<Data />} />
-            <Route path="/graph" element={<Graph />} />
-            <Route path="/pets" element={<Pets />} />
-            <Route path="/about" element={<About />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
+          {/* Fix Nav overlap */}
+          <Box paddingBottom="56px">
+            <Header />
+            <Routes>
+              <Route path="/" element={<Timer />} />
+              <Route path="/data" element={<Data />} />
+              <Route path="/graph" element={<Graph />} />
+              <Route path="/pets" element={<Pets />} />
+              <Route path="/about" element={<About />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </Box>
           <Nav />
         </Router>
       </ThemeProvider>
