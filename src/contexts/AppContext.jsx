@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 import { grey, red } from "@mui/material/colors";
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import Pet from "../classes/Pet";
 import Rate from "../classes/Rate";
 import { formatDate } from "../common/utils";
@@ -70,6 +70,9 @@ export const AppContextProvider = ({ children }) => {
     localStorage.setItem("selectedPet", index);
   };
 
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const snackbarMessage = useRef("");
+
   const addRate = (rate, date) => {
     // Copy existing rate history
     let updatedRateHistory = [...pets[selectedPet].rateHistory];
@@ -89,14 +92,14 @@ export const AppContextProvider = ({ children }) => {
     storePets(updatedPets);
 
     // Alert user of rate
-    alert(
+    snackbarMessage.current =
       rate +
-        " breaths/minute added to " +
-        pets[selectedPet].name +
-        "'s rate history on " +
-        formatDate(date) +
-        "."
-    );
+      " breaths/minute added to " +
+      pets[selectedPet].name +
+      "'s rate history on " +
+      formatDate(date) +
+      ".";
+    setIsSnackbarOpen(true);
   };
 
   return (
@@ -110,6 +113,9 @@ export const AppContextProvider = ({ children }) => {
         setSelectedPet,
         storeselectedPet,
         addRate,
+        isSnackbarOpen,
+        setIsSnackbarOpen,
+        snackbarMessage,
       }}
     >
       {children}

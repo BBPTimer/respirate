@@ -4,6 +4,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
+import AutohideSnackbar from "./AutohideSnackBar";
 
 const Timer = () => {
   const { addRate } = useContext(AppContext);
@@ -86,6 +87,7 @@ const Timer = () => {
 
   return (
     <>
+      <AutohideSnackbar />
       <h3>Timer</h3>
       <div className="white-bg">
         Tap this heart for every full breath your pet takes as the timer runs

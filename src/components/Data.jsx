@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
+import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
 
 const Data = () => {
@@ -124,6 +125,7 @@ const Data = () => {
       >
         Add Rate
       </Button>
+      <AutohideSnackbar />
       <br />
       {displayForm && (
         <form className="white-bg" onSubmit={handleAddRate}>
@@ -154,7 +156,7 @@ const Data = () => {
             disableFuture
             name="timestamp"
             slotProps={{ textField: { size: "small", required: true } }}
-            views={["year", "day", "hours", "minutes"]}
+            views={["year", "day", "hours", "minutes", "seconds"]}
           />{" "}
           <Tooltip title="Add">
             <IconButton type="submit">
@@ -180,7 +182,7 @@ const Data = () => {
         disableRowSelectionOnClick
         // Row conditional styling
         getRowClassName={(params) =>
-          params.row.rate >= pets[selectedPet].targetRate ? "red" : "green"
+          params.row.rate > pets[selectedPet].targetRate ? "red" : "green"
         }
         // Toolbar settings
         showToolbar

@@ -70,7 +70,7 @@ const Graph = () => {
             label: "Breathing Rate",
             colorMap: {
               type: "piecewise",
-              thresholds: [pets[selectedPet].targetRate],
+              thresholds: [parseInt(pets[selectedPet].targetRate) + 1],
               colors: ["Green", "#f44336"],
             },
           },
