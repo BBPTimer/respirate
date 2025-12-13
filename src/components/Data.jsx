@@ -1,4 +1,4 @@
-import { AddCircle, CloudUpload, Save } from "@mui/icons-material";
+import { AddCircle, CloudUpload, Delete, Save } from "@mui/icons-material";
 import {
   Button,
   ButtonGroup,
@@ -90,11 +90,16 @@ const Data = () => {
       sortable: false,
       filterable: false,
       disableColumnMenu: true,
-      width: 75,
+      disableExport: true,
+      width: 60,
       renderCell: (params) => (
-        <button key={params.id} onClick={() => handleDeleteRate(params)}>
-          Delete
-        </button>
+        <IconButton
+          key={params.id}
+          onClick={() => handleDeleteRate(params)}
+          size="small"
+        >
+          <Delete />
+        </IconButton>
       ),
     },
   ];
