@@ -1,8 +1,9 @@
 import { createTheme } from "@mui/material";
 import { grey, red } from "@mui/material/colors";
 import { createContext, useState } from "react";
-import { formatDate } from "../common/utils";
+import Pet from "../classes/Pet";
 import Rate from "../classes/Rate";
+import { formatDate } from "../common/utils";
 
 export const AppContext = createContext();
 
@@ -24,10 +25,35 @@ export const AppContextProvider = ({ children }) => {
     },
   });
 
+  const parseDataString = (dataString) => {
+    // Return generic pet if no data found in local storage
+    if (!dataString) {
+      return new Pet("My First Pet", 30);
+    }
+
+    // Convert string to JSON
+    dataString = JSON.parse(dataString);
+
+    let dataObjects = [];
+    // Loop through pets
+    for (let [index, pet] of dataString.entries()) {
+      // Add Pet object to array
+      dataObjects.push(new Pet(pet.name, pet.targetRate));
+
+      let rateObjects = [];
+      // Loop through rates
+      for (let rate of pet.rateHistory) {
+        rateObjects.push(new Rate(rate.rate, new Date(rate.timestamp)));
+      }
+      // Add rates to Pet
+      dataObjects[index].rateHistory = rateObjects;
+    }
+
+    return dataObjects;
+  };
+
   const [pets, setPets] = useState(
-    JSON.parse(localStorage.getItem("pets")) || [
-      { name: "My First Pet", targetRate: 30, rateHistory: [] },
-    ]
+    parseDataString(localStorage.getItem("pets"))
   );
 
   const storePets = (pets) => {
@@ -49,7 +75,7 @@ export const AppContextProvider = ({ children }) => {
     let updatedRateHistory = [...pets[selectedPet].rateHistory];
 
     // Add new rate
-    updatedRateHistory.push(new Rate(rate, date.toString()));
+    updatedRateHistory.push(new Rate(rate, date));
 
     // Sort new rates array by timestamp
     updatedRateHistory.sort((a, b) => a.timestamp - b.timestamp);
@@ -71,8 +97,6 @@ export const AppContextProvider = ({ children }) => {
         formatDate(date) +
         "."
     );
-
-    console.log(updatedPets);
   };
 
   return (
