@@ -1,5 +1,12 @@
 import { AddCircle, Delete, Save } from "@mui/icons-material";
-import { Button, ButtonGroup } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
@@ -15,6 +22,64 @@ const Pets = () => {
   } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
+
+  const nameTextField = (key, defaultValue) => {
+    return (
+      <TextField
+        key={key}
+        name="name"
+        defaultValue={defaultValue}
+        label="Name"
+        size="small"
+        required
+      />
+    );
+  };
+
+  const targetRateInput = (key, defaultValue) => {
+    return (
+      <>
+        <InputLabel htmlFor="targetRate" sx={{ fontSize: 12 }}>
+          Target rate *
+        </InputLabel>
+        <OutlinedInput
+          key={key}
+          name="targetRate"
+          id="targetRate"
+          defaultValue={defaultValue}
+          endAdornment={
+            <InputAdornment position="end">breaths/minute</InputAdornment>
+          }
+          type="number"
+          required
+          size="small"
+          slotProps={{
+            input: {
+              inputMode: "numeric",
+              pattern: "[0-9]*",
+              min: "1",
+              max: "999",
+            },
+          }}
+          sx={{ width: "180px" }}
+        />
+      </>
+    );
+  };
+
+  const saveButton = () => {
+    return (
+      <Button
+        type="submit"
+        variant="contained"
+        disableElevation
+        size="small"
+        startIcon={<Save />}
+      >
+        Save
+      </Button>
+    );
+  };
 
   const handleSave = (event, index) => {
     event.preventDefault();
@@ -74,42 +139,14 @@ const Pets = () => {
     return (
       <div key={index} className="white-bg">
         <form onSubmit={(event) => handleSave(event, index)}>
-          <label htmlFor="name">Name: </label>
-          <input
-            key={pet.name}
-            id="name"
-            name="name"
-            defaultValue={pet.name}
-            required
-          />
+          {nameTextField(pet.name, pet.name)}
           <br />
           <br />
-          <label htmlFor="targetRate">Target rate: </label>
-          <input
-            key={pet.name + "Rate"}
-            id="targetRate"
-            name="targetRate"
-            type="number"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            min="1"
-            max="999"
-            defaultValue={pet.targetRate}
-            required
-          />{" "}
-          breaths/minute
+          {targetRateInput(pet.name + "Rate", pet.targetRate)}
           <br />
           <br />
           <ButtonGroup>
-            <Button
-              type="submit"
-              variant="contained"
-              disableElevation
-              size="small"
-              startIcon={<Save />}
-            >
-              Save
-            </Button>
+            {saveButton()}
             <Button
               onClick={() => handleDelete(index)}
               variant="outlined"
@@ -141,33 +178,13 @@ const Pets = () => {
       <br />
       {displayForm && (
         <form className="white-bg" onSubmit={handleAdd}>
-          <label htmlFor="name">Name: </label>
-          <input id="name" name="name" required />
+          {nameTextField(null, null)}
           <br />
           <br />
-          <label htmlFor="targetRate">Target rate: </label>
-          <input
-            id="targetRate"
-            name="targetRate"
-            type="number"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            min="1"
-            max="999"
-            required
-          />{" "}
-          breaths/minute
+          {targetRateInput(null, 30)}
           <br />
           <br />
-          <Button
-            type="submit"
-            variant="contained"
-            disableElevation
-            size="small"
-            startIcon={<Save />}
-          >
-            Save
-          </Button>
+          {saveButton()}
         </form>
       )}
     </>
