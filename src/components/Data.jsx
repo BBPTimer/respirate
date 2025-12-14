@@ -13,9 +13,9 @@ import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
-import AlertDialog from "./AlertDialog";
 import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
+import ConfirmDialog from "./ConfirmDialog";
 
 const Data = () => {
   const {
@@ -122,9 +122,9 @@ const Data = () => {
   return (
     <>
       <h1>Data</h1>
-      <ButtonGroup>
+      <ButtonGroup size="small">
         <BackUpButton variant={"outlined"} />
-        <Button variant="outlined" size="small" startIcon={<CloudUpload />}>
+        <Button variant="outlined" startIcon={<CloudUpload />}>
           Restore Data
         </Button>
       </ButtonGroup>
@@ -212,7 +212,7 @@ const Data = () => {
           },
         }}
       />
-      <AlertDialog />
+      <ConfirmDialog />
     </>
   );
 };

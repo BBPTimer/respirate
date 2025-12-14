@@ -95,7 +95,13 @@ const Timer = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setIsBackUpDialogOpen(false)}>Cancel</Button>
+          <Button
+            onClick={() => setIsBackUpDialogOpen(false)}
+            variant="outlined"
+            size="small"
+          >
+            Cancel
+          </Button>
           <BackUpButton variant={"contained"} />
         </DialogActions>
       </Dialog>

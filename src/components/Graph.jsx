@@ -115,12 +115,11 @@ const Graph = () => {
           />
           <br />
           <br />
-          <ButtonGroup>
+          <ButtonGroup size="small">
             <Button
               type="submit"
               variant="contained"
               disableElevation
-              size="small"
               startIcon={<Save />}
             >
               Save
@@ -128,7 +127,6 @@ const Graph = () => {
             <Button
               onClick={() => setData([...pets[selectedPet].rateHistory])}
               variant="outlined"
-              size="small"
               startIcon={<CalendarMonth />}
             >
               Show All Data

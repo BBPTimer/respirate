@@ -1,17 +1,17 @@
 import { AddCircle, Delete, Save } from "@mui/icons-material";
 import {
-    Button,
-    ButtonGroup,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput,
-    TextField,
+  Button,
+  ButtonGroup,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
-import AlertDialog from "./AlertDialog";
 import AutohideSnackbar from "./AutohideSnackBar";
+import ConfirmDialog from "./ConfirmDialog";
 
 const Pets = () => {
   const {
@@ -152,18 +152,17 @@ const Pets = () => {
           {targetRateInput(pet.name + "Rate", pet.targetRate)}
           <br />
           <br />
-          <ButtonGroup>
+          <ButtonGroup size="small">
             {saveButton()}
             <Button
               onClick={() => handleDeleteClick(index)}
               variant="outlined"
-              size="small"
               startIcon={<Delete />}
             >
               Delete
             </Button>
           </ButtonGroup>
-          <AlertDialog />
+          <ConfirmDialog />
         </form>
       </div>
     );
