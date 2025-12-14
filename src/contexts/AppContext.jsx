@@ -103,6 +103,16 @@ export const AppContextProvider = ({ children }) => {
     setIsSnackbarOpen(true);
   };
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [dialogCallback, setDialogCallback] = useState(null);
+
+  const cleanUpDialog = () => {
+    setIsDialogOpen(false);
+    setDialogMessage("");
+    setDialogCallback(null);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -118,6 +128,13 @@ export const AppContextProvider = ({ children }) => {
         setIsSnackbarOpen,
         snackbarMessage,
         setSnackbarMessage,
+        isDialogOpen,
+        setIsDialogOpen,
+        dialogMessage,
+        setDialogMessage,
+        dialogCallback,
+        setDialogCallback,
+        cleanUpDialog,
       }}
     >
       {children}

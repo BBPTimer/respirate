@@ -10,6 +10,7 @@ import {
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
+import AlertDialog from "./AlertDialog";
 import AutohideSnackbar from "./AutohideSnackBar";
 
 const Pets = () => {
@@ -19,6 +20,10 @@ const Pets = () => {
     storeselectedPet,
     setIsSnackbarOpen,
     setSnackbarMessage,
+    setIsDialogOpen,
+    setDialogMessage,
+    setDialogCallback,
+    cleanUpDialog,
   } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
@@ -93,15 +98,15 @@ const Pets = () => {
     setIsSnackbarOpen(true);
   };
 
-  const handleDelete = (index) => {
-    if (
-      !confirm(
-        "This will delete all history for " + pets[index].name + ". Proceed?"
-      )
-    ) {
-      return;
-    }
+  const handleDeleteClick = (index) => {
+    setIsDialogOpen(true);
+    setDialogMessage(
+      "This will delete all history for " + pets[index].name + ". Proceed?"
+    );
+    setDialogCallback(() => () => handleDelete(index));
+  };
 
+  const handleDelete = (index) => {
     let updatedPets = [...pets];
     updatedPets.splice(index, 1);
 
@@ -111,6 +116,8 @@ const Pets = () => {
 
     storePets(updatedPets);
     storeselectedPet(0);
+
+    cleanUpDialog();
   };
 
   const handleAdd = (event) => {
@@ -148,7 +155,7 @@ const Pets = () => {
           <ButtonGroup>
             {saveButton()}
             <Button
-              onClick={() => handleDelete(index)}
+              onClick={() => handleDeleteClick(index)}
               variant="outlined"
               size="small"
               startIcon={<Delete />}
@@ -156,6 +163,7 @@ const Pets = () => {
               Delete
             </Button>
           </ButtonGroup>
+          <AlertDialog />
         </form>
       </div>
     );
