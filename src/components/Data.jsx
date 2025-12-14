@@ -107,7 +107,7 @@ const Data = () => {
 
   return (
     <>
-      <h3>Data</h3>
+      <h1>Data</h1>
       <ButtonGroup>
         <BackUpButton />
         <Button variant="outlined" size="small" startIcon={<CloudUpload />}>

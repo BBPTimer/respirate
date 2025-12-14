@@ -1,5 +1,5 @@
-import { AddCircle } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { AddCircle, Delete, Save } from "@mui/icons-material";
+import { Button, ButtonGroup } from "@mui/material";
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
@@ -100,16 +100,33 @@ const Pets = () => {
           breaths/minute
           <br />
           <br />
-          <button>Save</button>
+          <ButtonGroup>
+            <Button
+              type="submit"
+              variant="contained"
+              disableElevation
+              size="small"
+              startIcon={<Save />}
+            >
+              Save
+            </Button>
+            <Button
+              onClick={() => handleDelete(index)}
+              variant="outlined"
+              size="small"
+              startIcon={<Delete />}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
         </form>
-        <button onClick={() => handleDelete(index)}>Delete</button>
       </div>
     );
   });
 
   return (
     <>
-      <h3>Pets</h3>
+      <h1>Pets</h1>
       <AutohideSnackbar />
       {rows}
       <Button
@@ -142,7 +159,15 @@ const Pets = () => {
           breaths/minute
           <br />
           <br />
-          <button>Add</button>
+          <Button
+            type="submit"
+            variant="contained"
+            disableElevation
+            size="small"
+            startIcon={<Save />}
+          >
+            Save
+          </Button>
         </form>
       )}
     </>

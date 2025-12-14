@@ -1,7 +1,7 @@
 const About = () => {
   return (
     <>
-      <h3>About</h3>
+      <h1>About</h1>
       <p className="left-align">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
         consectetur mi. Quisque ut varius lectus. Etiam dapibus, mauris quis

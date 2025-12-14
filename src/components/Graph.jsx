@@ -46,7 +46,7 @@ const Graph = () => {
 
   return (
     <>
-      <h3>Graph</h3>
+      <h1>Graph</h1>
       <LineChart
         dataset={data}
         xAxis={[
@@ -126,8 +126,8 @@ const Graph = () => {
               Save
             </Button>
             <Button
-              variant="outlined"
               onClick={() => setData([...pets[selectedPet].rateHistory])}
+              variant="outlined"
               size="small"
               startIcon={<CalendarMonth />}
             >

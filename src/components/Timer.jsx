@@ -88,7 +88,7 @@ const Timer = () => {
   return (
     <>
       <AutohideSnackbar />
-      <h3>Timer</h3>
+      <h1>Timer</h1>
       <div className="white-bg">
         Tap this heart for every full breath your pet takes as the timer runs
         below.

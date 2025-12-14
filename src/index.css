@@ -7,6 +7,11 @@ body {
   background-color: #fffafa;
 }
 
+h1 {
+  font-size: 1.17em;
+  margin: 1em 0;
+}
+
 .white-bg {
   background-color: white;
 
