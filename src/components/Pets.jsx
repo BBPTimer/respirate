@@ -91,7 +91,7 @@ const Pets = () => {
 
     let updatedPets = [...pets];
     updatedPets[index].name = event.target.name.value;
-    updatedPets[index].targetRate = event.target.targetRate.value;
+    updatedPets[index].targetRate = parseInt(event.target.targetRate.value);
     storePets(updatedPets);
 
     setSnackbarMessage("Pet saved.");
@@ -133,7 +133,7 @@ const Pets = () => {
 
     let updatedPets = [...pets];
     updatedPets.push(
-      new Pet(event.target.name.value, event.target.targetRate.value)
+      new Pet(event.target.name.value, parseInt(event.target.targetRate.value))
     );
     storePets(updatedPets);
     storeselectedPet(updatedPets.length - 1);

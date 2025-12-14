@@ -119,6 +119,7 @@ export const AppContextProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         theme,
+        parseDataString,
         pets,
         setPets,
         storePets,

@@ -1,4 +1,4 @@
-import { AddCircle, CloudUpload, Delete, Save } from "@mui/icons-material";
+import { AddCircle, Delete, Save } from "@mui/icons-material";
 import {
   Button,
   ButtonGroup,
@@ -16,6 +16,7 @@ import { AppContext } from "../contexts/AppContext";
 import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
 import ConfirmDialog from "./ConfirmDialog";
+import RestoreButton from "./RestoreButton";
 
 const Data = () => {
   const {
@@ -124,9 +125,7 @@ const Data = () => {
       <h1>Data</h1>
       <ButtonGroup size="small">
         <BackUpButton variant={"outlined"} />
-        <Button variant="outlined" startIcon={<CloudUpload />}>
-          Restore Data
-        </Button>
+        <RestoreButton />
       </ButtonGroup>
       <br />
       <br />
