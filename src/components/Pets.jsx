@@ -126,7 +126,8 @@ const Pets = () => {
     // Check if pet already exists
     for (let pet of pets) {
       if (event.target.name.value === pet.name) {
-        alert(event.target.name.value + " already exists.");
+        setSnackbarMessage(event.target.name.value + " already exists.");
+        setIsSnackbarOpen(true);
         return;
       }
     }
