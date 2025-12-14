@@ -13,11 +13,21 @@ import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
+import AlertDialog from "./AlertDialog";
 import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
 
 const Data = () => {
-  const { pets, storePets, selectedPet, addRate } = useContext(AppContext);
+  const {
+    pets,
+    storePets,
+    selectedPet,
+    addRate,
+    setIsDialogOpen,
+    setDialogMessage,
+    setDialogCallback,
+    cleanUpDialog,
+  } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
@@ -37,11 +47,13 @@ const Data = () => {
     setDisplayForm(false);
   };
 
-  const handleDeleteRate = (params) => {
-    if (!confirm("Delete rate from " + formatDate(params.id) + "?")) {
-      return;
-    }
+  const handleDeleteRateClick = (params) => {
+    setIsDialogOpen(true);
+    setDialogMessage("Delete rate from " + formatDate(params.id) + "?");
+    setDialogCallback(() => () => handleDeleteRate(params));
+  };
 
+  const handleDeleteRate = (params) => {
     // Loop through rate history
     for (let [index, rate] of pets[selectedPet].rateHistory.entries()) {
       // Identify index of rate to delete
@@ -49,6 +61,8 @@ const Data = () => {
         deleteRate(index);
       }
     }
+
+    cleanUpDialog();
   };
 
   const deleteRate = (index) => {
@@ -96,7 +110,7 @@ const Data = () => {
       renderCell: (params) => (
         <IconButton
           key={params.id}
-          onClick={() => handleDeleteRate(params)}
+          onClick={() => handleDeleteRateClick(params)}
           size="small"
         >
           <Delete />
@@ -198,6 +212,7 @@ const Data = () => {
           },
         }}
       />
+      <AlertDialog />
     </>
   );
 };
