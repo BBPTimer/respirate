@@ -1,11 +1,11 @@
 import { AddCircle, Delete, Save } from "@mui/icons-material";
 import {
-  Button,
-  ButtonGroup,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
+    Button,
+    ButtonGroup,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    TextField,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
@@ -20,10 +20,10 @@ const Pets = () => {
     storeselectedPet,
     setIsSnackbarOpen,
     setSnackbarMessage,
-    setIsDialogOpen,
-    setDialogMessage,
-    setDialogCallback,
-    cleanUpDialog,
+    setIsConfirmOpen,
+    setConfirmMessage,
+    setConfirmCallback,
+    cleanUpConfirm,
   } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
@@ -99,11 +99,11 @@ const Pets = () => {
   };
 
   const handleDeleteClick = (index) => {
-    setIsDialogOpen(true);
-    setDialogMessage(
+    setIsConfirmOpen(true);
+    setConfirmMessage(
       "This will delete all history for " + pets[index].name + ". Proceed?"
     );
-    setDialogCallback(() => () => handleDelete(index));
+    setConfirmCallback(() => () => handleDelete(index));
   };
 
   const handleDelete = (index) => {
@@ -117,7 +117,7 @@ const Pets = () => {
     storePets(updatedPets);
     storeselectedPet(0);
 
-    cleanUpDialog();
+    cleanUpConfirm();
   };
 
   const handleAdd = (event) => {

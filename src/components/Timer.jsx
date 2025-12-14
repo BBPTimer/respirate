@@ -1,41 +1,37 @@
 import { Replay } from "@mui/icons-material";
-import { IconButton, Tooltip } from "@mui/material";
-import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router";
-import { formatDate } from "../common/utils";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+import { useContext, useRef, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import AutohideSnackbar from "./AutohideSnackBar";
+import BackUpButton from "./BackUpButton";
 
 const Timer = () => {
-  const { addRate } = useContext(AppContext);
+  const { addRate, isBackUpDialogOpen, setIsBackUpDialogOpen } =
+    useContext(AppContext);
 
+  // Prompt user to back up data
   const reminderDays = 30;
-  // Initialize React Router navigator
-  const navigate = useNavigate();
-  // Prompt user to back up data and redirect user to Data component
-  const backupReminder = () => {
-    // If user has no lastBackup in local storage, set to today
-    if (!localStorage.getItem("lastBackup")) {
-      localStorage.setItem("lastBackup", new Date());
-    }
-    // Get lastBackup from local storage
-    const lastBackup = new Date(localStorage.getItem("lastBackup"));
-    // Compare last backup date to today
-    if (new Date() - lastBackup > reminderDays * 24 * 60 * 60 * 1000) {
-      // Alert user to backup data
-      alert(
-        "Data last backed up on " +
-          formatDate(lastBackup) +
-          ". We recommend backing up your data regularly!"
-      );
-      // Redirect to Data component
-      navigate("/data");
-      // Update lastBackup in local storage to today
-      localStorage.setItem("lastBackup", new Date());
-    }
-  };
-  // Run backup reminder on first render
-  useEffect(backupReminder, []);
+  // If user has no lastBackup in local storage, set to today
+  if (!localStorage.getItem("lastBackup")) {
+    localStorage.setItem("lastBackup", new Date());
+  }
+  // Get lastBackup from local storage
+  const lastBackup = new Date(localStorage.getItem("lastBackup"));
+  // Compare last backup date to today
+  if (new Date() - lastBackup > reminderDays * 24 * 60 * 60 * 1000) {
+    // Open Confirm
+    setIsBackUpDialogOpen(true);
+    // Update lastBackup in local storage to today
+    localStorage.setItem("lastBackup", new Date());
+  }
 
   const [stateTaps, setStateTaps] = useState(0);
   const refTaps = useRef(0);
@@ -87,6 +83,22 @@ const Timer = () => {
 
   return (
     <>
+      <Dialog
+        open={isBackUpDialogOpen}
+        onClose={() => setIsBackUpDialogOpen(false)}
+      >
+        <DialogContent>
+          <DialogContentText>
+            {
+              "Data last backed up over 30 days ago. We recommend backing up your data regularly!"
+            }
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setIsBackUpDialogOpen(false)}>Cancel</Button>
+          <BackUpButton variant={"contained"} />
+        </DialogActions>
+      </Dialog>
       <AutohideSnackbar />
       <h1>Timer</h1>
       <div className="white-bg">

@@ -3,8 +3,13 @@ import { Button } from "@mui/material";
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 
-const BackUpButton = () => {
-  const { pets } = useContext(AppContext);
+const BackUpButton = ({ variant }) => {
+  const { pets, setIsBackUpDialogOpen } = useContext(AppContext);
+
+  const handleClick = () => {
+    localStorage.setItem("lastBackup", new Date());
+    setIsBackUpDialogOpen(false);
+  };
 
   return (
     <>
@@ -17,8 +22,9 @@ const BackUpButton = () => {
         download={"respirateBackup"}
       >
         <Button
-          variant="outlined"
-          onClick={() => localStorage.setItem("lastBackup", new Date())}
+          onClick={handleClick}
+          variant={variant}
+          disableElevation
           size="small"
           startIcon={<CloudDownload />}
         >

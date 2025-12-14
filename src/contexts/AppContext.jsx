@@ -70,6 +70,8 @@ export const AppContextProvider = ({ children }) => {
     localStorage.setItem("selectedPet", index);
   };
 
+  const [isBackUpDialogOpen, setIsBackUpDialogOpen] = useState(false);
+
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
@@ -103,14 +105,14 @@ export const AppContextProvider = ({ children }) => {
     setIsSnackbarOpen(true);
   };
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [dialogMessage, setDialogMessage] = useState("");
-  const [dialogCallback, setDialogCallback] = useState(null);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState("");
+  const [confirmCallback, setConfirmCallback] = useState(null);
 
-  const cleanUpDialog = () => {
-    setIsDialogOpen(false);
-    setDialogMessage("");
-    setDialogCallback(null);
+  const cleanUpConfirm = () => {
+    setIsConfirmOpen(false);
+    setConfirmMessage("");
+    setConfirmCallback(null);
   };
 
   return (
@@ -123,18 +125,20 @@ export const AppContextProvider = ({ children }) => {
         selectedPet,
         setSelectedPet,
         storeselectedPet,
-        addRate,
+        isBackUpDialogOpen,
+        setIsBackUpDialogOpen,
         isSnackbarOpen,
         setIsSnackbarOpen,
         snackbarMessage,
         setSnackbarMessage,
-        isDialogOpen,
-        setIsDialogOpen,
-        dialogMessage,
-        setDialogMessage,
-        dialogCallback,
-        setDialogCallback,
-        cleanUpDialog,
+        addRate,
+        isConfirmOpen,
+        setIsConfirmOpen,
+        confirmMessage,
+        setConfirmMessage,
+        confirmCallback,
+        setConfirmCallback,
+        cleanUpConfirm,
       }}
     >
       {children}

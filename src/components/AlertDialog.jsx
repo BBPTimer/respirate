@@ -7,22 +7,20 @@ import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 
 export default function AlertDialog() {
-  const { isDialogOpen, dialogMessage, dialogCallback, cleanUpDialog } =
+  const { isConfirmOpen, confirmMessage, confirmCallback, cleanUpConfirm } =
     useContext(AppContext);
 
   return (
-    <>
-      <Dialog open={isDialogOpen} onClose={cleanUpDialog}>
-        <DialogContent>
-          <DialogContentText>{dialogMessage}</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={cleanUpDialog}>Cancel</Button>
-          <Button onClick={dialogCallback} autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <Dialog open={isConfirmOpen} onClose={cleanUpConfirm}>
+      <DialogContent>
+        <DialogContentText>{confirmMessage}</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={cleanUpConfirm}>Cancel</Button>
+        <Button onClick={confirmCallback} autoFocus>
+          OK
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }

@@ -23,10 +23,10 @@ const Data = () => {
     storePets,
     selectedPet,
     addRate,
-    setIsDialogOpen,
-    setDialogMessage,
-    setDialogCallback,
-    cleanUpDialog,
+    setIsConfirmOpen,
+    setConfirmMessage,
+    setConfirmCallback,
+    cleanUpConfirm,
   } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
@@ -48,9 +48,9 @@ const Data = () => {
   };
 
   const handleDeleteRateClick = (params) => {
-    setIsDialogOpen(true);
-    setDialogMessage("Delete rate from " + formatDate(params.id) + "?");
-    setDialogCallback(() => () => handleDeleteRate(params));
+    setIsConfirmOpen(true);
+    setConfirmMessage("Delete rate from " + formatDate(params.id) + "?");
+    setConfirmCallback(() => () => handleDeleteRate(params));
   };
 
   const handleDeleteRate = (params) => {
@@ -62,7 +62,7 @@ const Data = () => {
       }
     }
 
-    cleanUpDialog();
+    cleanUpConfirm();
   };
 
   const deleteRate = (index) => {
@@ -123,7 +123,7 @@ const Data = () => {
     <>
       <h1>Data</h1>
       <ButtonGroup>
-        <BackUpButton />
+        <BackUpButton variant={"outlined"} />
         <Button variant="outlined" size="small" startIcon={<CloudUpload />}>
           Restore Data
         </Button>
