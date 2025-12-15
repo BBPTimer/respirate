@@ -1,4 +1,4 @@
-import { Replay } from "@mui/icons-material";
+import { Replay, Speed } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -6,7 +6,10 @@ import {
   DialogContent,
   DialogContentText,
   IconButton,
+  InputAdornment,
+  OutlinedInput,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { useContext, useRef, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
@@ -16,8 +19,12 @@ import CommentTextField from "./CommentTextField";
 import SaveButton from "./SaveButton";
 
 const Timer = () => {
-  const { addRate, isBackUpDialogOpen, setIsBackUpDialogOpen } =
-    useContext(AppContext);
+  const {
+    addRate,
+    isBackUpDialogOpen,
+    setIsBackUpDialogOpen,
+    inputLabelStyle,
+  } = useContext(AppContext);
 
   // Prompt user to back up data
   const reminderDays = 30;
@@ -55,10 +62,28 @@ const Timer = () => {
     interval.current = setInterval(timer, 100);
   };
 
-  const timerDuration = 30;
+  const [timerDuration, setTimerDuration] = useState(
+    localStorage.getItem("timerDuration") || 30
+  );
+
+  const [displayForm, setDisplayForm] = useState(false);
+
+  const updateTimerDuration = (event) => {
+    event.preventDefault();
+
+    setTimerDuration(event.target.timerDuration.value);
+    localStorage.setItem("timerDuration", event.target.timerDuration.value);
+
+    // Reset timer
+    reset(event.target.timerDuration.value);
+
+    // Close form
+    setDisplayForm(false);
+  };
+
   const [seconds, setSeconds] = useState(timerDuration);
 
-  const reset = () => {
+  const reset = (timerDuration) => {
     // Stop timer
     clearInterval(interval.current);
     setIsTimerRunning(false);
@@ -81,27 +106,28 @@ const Timer = () => {
     }
   };
 
+  const [isCommentDialogOpen, setIsCommentDialogOpen] = useState(false);
+
   const handleCommentSubmit = (event) => {
     event.preventDefault();
 
     // Add rate to history
     addRate(
-      (60 / timerDuration) * refTaps.current,
+      Math.round((60 / timerDuration) * refTaps.current),
       new Date(),
       event.target.comment.value
     );
 
     // Reset timer
-    reset();
+    reset(timerDuration);
 
     // Close comment dialog
     setIsCommentDialogOpen(false);
   };
 
-  const [isCommentDialogOpen, setIsCommentDialogOpen] = useState(false);
-
   return (
     <>
+      {/* Backup dialog */}
       <Dialog
         open={isBackUpDialogOpen}
         onClose={() => setIsBackUpDialogOpen(false)}
@@ -125,6 +151,8 @@ const Timer = () => {
         </DialogActions>
       </Dialog>
       <AutohideSnackbar />
+
+      {/* Timer */}
       <h1>Timer</h1>
       <div className="white-bg">
         Tap this heart for every full breath your pet takes as the timer runs
@@ -144,11 +172,52 @@ const Timer = () => {
         <br />
         <br />
         <Tooltip title="Reset">
-          <IconButton onClick={reset}>
+          <IconButton onClick={() => reset(timerDuration)}>
             <Replay />
           </IconButton>
         </Tooltip>
       </div>
+
+      {/* Timer duration */}
+      <Button
+        variant="outlined"
+        size="small"
+        disableElevation
+        onClick={() => setDisplayForm(!displayForm)}
+        startIcon={<Speed />}
+      >
+        Timer Duration
+      </Button>
+      {displayForm && (
+        <form className="white-bg" onSubmit={updateTimerDuration}>
+          <OutlinedInput
+            defaultValue={timerDuration}
+            endAdornment={
+              <InputAdornment position="end">seconds</InputAdornment>
+            }
+            name="timerDuration"
+            type="number"
+            required
+            size="small"
+            slotProps={{
+              input: {
+                inputMode: "numeric",
+                pattern: "[0-9]*",
+                min: "15",
+                max: "60",
+              },
+            }}
+            sx={{ width: "180px" }}
+          />
+          <Typography color="grey" sx={inputLabelStyle}>
+            Enter a duration between 15 and 60 seconds.
+          </Typography>
+          <br />
+          <SaveButton />
+        </form>
+      )}
+
+      {/* Comment dialog */}
       <Dialog open={isCommentDialogOpen}>
         <form onSubmit={handleCommentSubmit}>
           <DialogContent>
