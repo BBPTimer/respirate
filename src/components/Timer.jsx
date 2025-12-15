@@ -1,4 +1,4 @@
-import { Replay, Save } from "@mui/icons-material";
+import { Replay } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -13,6 +13,7 @@ import { AppContext } from "../contexts/AppContext";
 import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
 import CommentTextField from "./CommentTextField";
+import SaveButton from "./SaveButton";
 
 const Timer = () => {
   const { addRate, isBackUpDialogOpen, setIsBackUpDialogOpen } =
@@ -149,23 +150,14 @@ const Timer = () => {
         </Tooltip>
       </div>
       <Dialog open={isCommentDialogOpen}>
-        <DialogContent>
-          <form onSubmit={handleCommentSubmit} id="comment-form">
+        <form onSubmit={handleCommentSubmit}>
+          <DialogContent>
             <CommentTextField />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            type="submit"
-            form="comment-form"
-            variant="contained"
-            disableElevation
-            size="small"
-            startIcon={<Save />}
-          >
-            Save
-          </Button>
-        </DialogActions>
+          </DialogContent>
+          <DialogActions>
+            <SaveButton />
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   );

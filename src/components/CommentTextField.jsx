@@ -1,14 +1,23 @@
-import { TextField } from "@mui/material";
+import { InputLabel, TextField } from "@mui/material";
+import { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
 
 const CommentTextField = () => {
+  const { inputLabelStyle } = useContext(AppContext);
+
   return (
-    <TextField
-      name="comment"
-      label="Optional Comment"
-      multiline
-      maxRows={4}
-      size="small"
-    />
+    <>
+      <InputLabel htmlFor="comment" sx={inputLabelStyle}>
+        Optional Comment
+      </InputLabel>
+      <TextField
+        id="comment"
+        name="comment"
+        multiline
+        maxRows={4}
+        size="small"
+      />
+    </>
   );
 };
 

@@ -1,11 +1,10 @@
-import { AddCircle, Delete, Save } from "@mui/icons-material";
+import { AddCircle, Delete } from "@mui/icons-material";
 import {
   Button,
   ButtonGroup,
   IconButton,
   InputAdornment,
   OutlinedInput,
-  Tooltip,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
@@ -18,6 +17,7 @@ import BackUpButton from "./BackUpButton";
 import CommentTextField from "./CommentTextField";
 import ConfirmDialog from "./ConfirmDialog";
 import RestoreButton from "./RestoreButton";
+import SaveButton from "./SaveButton";
 
 const Data = () => {
   const {
@@ -186,12 +186,10 @@ const Data = () => {
           />
           <br />
           <br />
-          <CommentTextField />{" "}
-          <Tooltip title="Add">
-            <IconButton type="submit">
-              <Save color="primary" />
-            </IconButton>
-          </Tooltip>
+          <CommentTextField />
+          <br />
+          <br />
+          <SaveButton />
         </form>
       )}
       <br />

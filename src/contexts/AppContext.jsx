@@ -43,7 +43,9 @@ export const AppContextProvider = ({ children }) => {
       let rateObjects = [];
       // Loop through rates
       for (let rate of pet.rateHistory) {
-        rateObjects.push(new Rate(rate.rate, new Date(rate.timestamp), rate.comment));
+        rateObjects.push(
+          new Rate(rate.rate, new Date(rate.timestamp), rate.comment)
+        );
       }
       // Add rates to Pet
       dataObjects[index].rateHistory = rateObjects;
@@ -115,6 +117,8 @@ export const AppContextProvider = ({ children }) => {
     setConfirmCallback(null);
   };
 
+  const inputLabelStyle = { fontSize: 12 };
+
   return (
     <AppContext.Provider
       value={{
@@ -140,6 +144,7 @@ export const AppContextProvider = ({ children }) => {
         confirmCallback,
         setConfirmCallback,
         cleanUpConfirm,
+        inputLabelStyle,
       }}
     >
       {children}

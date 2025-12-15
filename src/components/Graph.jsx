@@ -1,10 +1,11 @@
-import { CalendarMonth, EditCalendar, Save } from "@mui/icons-material";
+import { CalendarMonth, EditCalendar } from "@mui/icons-material";
 import { Button, ButtonGroup } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { useContext, useEffect, useState } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
+import SaveButton from "./SaveButton";
 
 const Graph = () => {
   const { pets, selectedPet } = useContext(AppContext);
@@ -20,6 +21,7 @@ const Graph = () => {
   };
 
   const [displayForm, setDisplayForm] = useState(false);
+  const dateTimePickerStyle = { textField: { size: "small", required: true } };
 
   const handleDateRange = (event) => {
     event.preventDefault();
@@ -103,7 +105,7 @@ const Graph = () => {
             label="Start Date"
             disableFuture
             name="startDate"
-            slotProps={{ textField: { size: "small", required: true } }}
+            slotProps={dateTimePickerStyle}
           />
           <br />
           <br />
@@ -111,19 +113,12 @@ const Graph = () => {
             label="End Date"
             disableFuture
             name="endDate"
-            slotProps={{ textField: { size: "small", required: true } }}
+            slotProps={dateTimePickerStyle}
           />
           <br />
           <br />
           <ButtonGroup size="small">
-            <Button
-              type="submit"
-              variant="contained"
-              disableElevation
-              startIcon={<Save />}
-            >
-              Save
-            </Button>
+            <SaveButton />
             <Button
               onClick={() => setData([...pets[selectedPet].rateHistory])}
               variant="outlined"

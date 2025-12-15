@@ -1,4 +1,4 @@
-import { AddCircle, Delete, Save } from "@mui/icons-material";
+import { AddCircle, Delete } from "@mui/icons-material";
 import {
   Button,
   ButtonGroup,
@@ -12,6 +12,7 @@ import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
 import AutohideSnackbar from "./AutohideSnackBar";
 import ConfirmDialog from "./ConfirmDialog";
+import SaveButton from "./SaveButton";
 
 const Pets = () => {
   const {
@@ -24,28 +25,34 @@ const Pets = () => {
     setConfirmMessage,
     setConfirmCallback,
     cleanUpConfirm,
+    inputLabelStyle,
   } = useContext(AppContext);
 
   const [displayForm, setDisplayForm] = useState(false);
 
   const nameTextField = (key, defaultValue) => {
     return (
-      <TextField
-        key={key}
-        name="name"
-        defaultValue={defaultValue}
-        label="Name"
-        size="small"
-        required
-      />
+      <>
+        <InputLabel htmlFor="name" sx={inputLabelStyle} required>
+          Name
+        </InputLabel>
+        <TextField
+          key={key}
+          id="name"
+          name="name"
+          defaultValue={defaultValue}
+          size="small"
+          required
+        />
+      </>
     );
   };
 
   const targetRateInput = (key, defaultValue) => {
     return (
       <>
-        <InputLabel htmlFor="targetRate" sx={{ fontSize: 12 }}>
-          Target rate *
+        <InputLabel htmlFor="targetRate" sx={inputLabelStyle} required>
+          Target Rate
         </InputLabel>
         <OutlinedInput
           key={key}
@@ -69,20 +76,6 @@ const Pets = () => {
           sx={{ width: "180px" }}
         />
       </>
-    );
-  };
-
-  const saveButton = () => {
-    return (
-      <Button
-        type="submit"
-        variant="contained"
-        disableElevation
-        size="small"
-        startIcon={<Save />}
-      >
-        Save
-      </Button>
     );
   };
 
@@ -154,7 +147,7 @@ const Pets = () => {
           <br />
           <br />
           <ButtonGroup size="small">
-            {saveButton()}
+            <SaveButton />
             <Button
               onClick={() => handleDeleteClick(index)}
               variant="outlined"
@@ -192,7 +185,7 @@ const Pets = () => {
           {targetRateInput(null, 30)}
           <br />
           <br />
-          {saveButton()}
+          <SaveButton />
         </form>
       )}
     </>
