@@ -43,7 +43,7 @@ export const AppContextProvider = ({ children }) => {
       let rateObjects = [];
       // Loop through rates
       for (let rate of pet.rateHistory) {
-        rateObjects.push(new Rate(rate.rate, new Date(rate.timestamp)));
+        rateObjects.push(new Rate(rate.rate, new Date(rate.timestamp), rate.comment));
       }
       // Add rates to Pet
       dataObjects[index].rateHistory = rateObjects;
@@ -75,12 +75,12 @@ export const AppContextProvider = ({ children }) => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  const addRate = (rate, date) => {
+  const addRate = (rate, date, comment) => {
     // Copy existing rate history
     let updatedRateHistory = [...pets[selectedPet].rateHistory];
 
     // Add new rate
-    updatedRateHistory.push(new Rate(rate, date));
+    updatedRateHistory.push(new Rate(rate, date, comment));
 
     // Sort new rates array by timestamp
     updatedRateHistory.sort((a, b) => a.timestamp - b.timestamp);

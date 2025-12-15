@@ -1,4 +1,4 @@
-import { Replay } from "@mui/icons-material";
+import { Replay, Save } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -12,6 +12,7 @@ import { useContext, useRef, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
+import CommentTextField from "./CommentTextField";
 
 const Timer = () => {
   const { addRate, isBackUpDialogOpen, setIsBackUpDialogOpen } =
@@ -74,12 +75,29 @@ const Timer = () => {
       // Stop timer
       clearInterval(interval.current);
 
-      // Add rate to history
-      addRate((60 / timerDuration) * refTaps.current, initialDate);
-
-      reset();
+      // Open comment dialog
+      setIsCommentDialogOpen(true);
     }
   };
+
+  const handleCommentSubmit = (event) => {
+    event.preventDefault();
+
+    // Add rate to history
+    addRate(
+      (60 / timerDuration) * refTaps.current,
+      new Date(),
+      event.target.comment.value
+    );
+
+    // Reset timer
+    reset();
+
+    // Close comment dialog
+    setIsCommentDialogOpen(false);
+  };
+
+  const [isCommentDialogOpen, setIsCommentDialogOpen] = useState(false);
 
   return (
     <>
@@ -119,7 +137,7 @@ const Timer = () => {
           }
         />
         <br />
-        <i>Timer:</i> {Math.floor(seconds)}
+        <i>Timer:</i> {Math.ceil(seconds)}
         <br />
         <i>Tap Count:</i> {stateTaps}
         <br />
@@ -130,6 +148,25 @@ const Timer = () => {
           </IconButton>
         </Tooltip>
       </div>
+      <Dialog open={isCommentDialogOpen}>
+        <DialogContent>
+          <form onSubmit={handleCommentSubmit} id="comment-form">
+            <CommentTextField />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            type="submit"
+            form="comment-form"
+            variant="contained"
+            disableElevation
+            size="small"
+            startIcon={<Save />}
+          >
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

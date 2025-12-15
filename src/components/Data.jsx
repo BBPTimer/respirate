@@ -15,6 +15,7 @@ import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
+import CommentTextField from "./CommentTextField";
 import ConfirmDialog from "./ConfirmDialog";
 import RestoreButton from "./RestoreButton";
 
@@ -42,7 +43,11 @@ const Data = () => {
       date = new Date(event.target.timestamp.value);
     }
 
-    addRate(parseInt(event.target.rate.value), date);
+    addRate(
+      parseInt(event.target.rate.value),
+      date,
+      event.target.comment.value
+    );
 
     // Close form
     setDisplayForm(false);
@@ -118,6 +123,14 @@ const Data = () => {
         </IconButton>
       ),
     },
+    {
+      field: "comment",
+      headerName: "Comment",
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
+      width: 1000,
+    },
   ];
 
   return (
@@ -170,7 +183,10 @@ const Data = () => {
             name="timestamp"
             slotProps={{ textField: { size: "small", required: true } }}
             views={["year", "day", "hours", "minutes", "seconds"]}
-          />{" "}
+          />
+          <br />
+          <br />
+          <CommentTextField />{" "}
           <Tooltip title="Add">
             <IconButton type="submit">
               <Save color="primary" />
@@ -193,10 +209,20 @@ const Data = () => {
         // Table styling
         sx={{ border: 1, borderColor: "lightgray", borderRadius: "5px" }}
         disableRowSelectionOnClick
-        // Row conditional styling
-        getRowClassName={(params) =>
-          params.row.rate > pets[selectedPet].targetRate ? "red" : "green"
-        }
+        // Cell conditional styling
+        getCellClassName={(params) => {
+          if (
+            params.field === "rate" &&
+            params.value > pets[selectedPet].targetRate
+          ) {
+            return "red";
+          } else if (
+            params.field === "rate" &&
+            params.value <= pets[selectedPet].targetRate
+          ) {
+            return "green";
+          }
+        }}
         // Toolbar settings
         showToolbar
         disableColumnSelector

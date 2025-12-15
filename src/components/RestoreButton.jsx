@@ -28,15 +28,16 @@ const RestoreButton = () => {
     properties: {
       rate: { type: "integer" },
       timestamp: { type: "string", format: "date-time" },
+      comment: { type: "string" },
     },
-    required: ["rate", "timestamp"],
+    required: ["rate", "timestamp", "comment"],
     additionalProperties: false,
   };
 
   const petSchema = {
     type: "object",
     properties: {
-      name: { type: "string" },
+      name: { type: "string", minLength: 1 },
       targetRate: { type: "integer" },
       rateHistory: { type: "array", items: rateSchema },
     },
