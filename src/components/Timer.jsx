@@ -165,12 +165,16 @@ const Timer = () => {
             isTimerRunning ? () => updateTaps(stateTaps + 1) : initializeTimer
           }
         />
-        <br />
-        <i>Timer:</i> {Math.ceil(seconds)}
-        <br />
-        <i>Tap Count:</i> {stateTaps}
-        <br />
-        <br />
+        <table>
+          <tr>
+            <td>Timer:</td>
+            <td>{Math.ceil(seconds)}</td>
+          </tr>
+          <tr>
+            <td>Tap Count:</td>
+            <td>{stateTaps}</td>
+          </tr>
+        </table>
         <Tooltip title="Reset">
           <IconButton onClick={() => reset(timerDuration)}>
             <Replay />

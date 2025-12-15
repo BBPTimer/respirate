@@ -26,6 +26,10 @@ h1 {
   transform: scale(1.1);
 }
 
+td {
+  text-align: left;
+}
+
 input {
   font-size: 16px;
 }
