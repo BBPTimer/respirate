@@ -32,6 +32,7 @@ const Nav = () => {
         bottom: 0,
         left: 0,
         right: 0,
+        paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
       <BottomNavigation value={value} onChange={handleChange} showLabels>
