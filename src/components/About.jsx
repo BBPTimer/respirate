@@ -1,68 +1,138 @@
+import Avatar from "@mui/material/Avatar";
+import AvatarGroup from "@mui/material/AvatarGroup";
+import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
+
 const About = () => {
   return (
-    <>
+    <div id="about">
       <h1>About</h1>
-      <p className="left-align">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-        consectetur mi. Quisque ut varius lectus. Etiam dapibus, mauris quis
-        pulvinar mollis, est mi dapibus lacus, non mattis risus tellus id nunc.
-        Suspendisse lobortis fringilla ligula, sit amet convallis urna accumsan
-        molestie. Maecenas in dui dolor. Etiam vel ante neque. In hac habitasse
-        platea dictumst. Phasellus facilisis, velit at bibendum euismod, diam
-        erat placerat nunc, lacinia eleifend ex tortor mattis diam. Vestibulum
-        bibendum leo velit, eget tincidunt nulla porta et. Ut metus nulla,
-        varius et vulputate ac, consectetur vel metus. Phasellus hendrerit justo
-        dui, vel laoreet diam iaculis a. Ut ultrices elit quis mattis congue.
-        Nunc imperdiet in nisi eget mattis. Duis volutpat ante vehicula enim
-        pulvinar, sed rhoncus dui pellentesque. Donec vel sem tempus, efficitur
-        diam nec, placerat augue.
-        <br />
-        <br />
-        Quisque iaculis ipsum vitae quam tincidunt mollis. Nulla lectus tortor,
-        aliquet sed enim eget, consectetur lobortis lacus. Integer ac orci ac
-        metus faucibus elementum. Quisque eu quam quis ipsum gravida viverra.
-        Vivamus dictum lorem ac lacinia molestie. Nunc molestie vulputate
-        facilisis. Aenean efficitur condimentum mi, eget sollicitudin est
-        porttitor vitae.
-        <br />
-        <br />
-        Etiam consequat scelerisque dolor ac tempus. In vitae egestas sapien.
-        Donec sit amet eleifend ante. Quisque fringilla interdum turpis. Aenean
-        pellentesque, ligula sit amet pulvinar dapibus, ipsum lorem condimentum
-        ante, sed condimentum sapien odio sit amet nisl. Donec eu metus molestie
-        odio consequat suscipit. Etiam at maximus orci. Aliquam congue est vitae
-        mi varius tempor. Nulla non maximus tortor, vitae aliquam purus.
-        <br />
-        <br />
-        Maecenas nec nulla accumsan, lacinia nisl vitae, convallis dolor. Nulla
-        tristique velit ac diam convallis, a tempor risus efficitur. Interdum et
-        malesuada fames ac ante ipsum primis in faucibus. Quisque volutpat massa
-        in felis mattis suscipit. Class aptent taciti sociosqu ad litora
-        torquent per conubia nostra, per inceptos himenaeos. Etiam vitae leo
-        sem. Etiam sapien odio, consequat vel arcu a, finibus ullamcorper orci.
-        Pellentesque dictum eros erat, eu pellentesque quam consequat vitae.
-        Proin blandit mi at laoreet vehicula. Curabitur metus magna, blandit
-        pharetra diam id, egestas blandit urna. Ut vitae odio metus. Aliquam
-        tincidunt quam enim, non porttitor libero pretium eu. Ut ex felis,
-        congue sed pulvinar quis, vestibulum eget mauris. Cras dictum orci enim,
-        in pretium justo lacinia a.
-        <br />
-        <br />
-        Phasellus elementum convallis ligula. In ornare nisi eu pulvinar
-        tincidunt. Donec dui felis, consequat ut rhoncus luctus, egestas quis
-        neque. Donec semper, nunc eu pharetra ultrices, ipsum dolor dictum odio,
-        non pellentesque ipsum risus id massa. Sed facilisis fermentum suscipit.
-        Pellentesque habitant morbi tristique senectus et netus et malesuada
-        fames ac turpis egestas. Vivamus tincidunt ante et massa dapibus, eu
-        tempor leo ultrices. Mauris enim est, condimentum ac augue et, feugiat
-        iaculis nisl. Aliquam blandit orci mi, sed tincidunt nibh dictum sed.
-        Suspendisse id scelerisque tellus. Aenean eu blandit quam. Duis ultrices
-        velit tellus, in tincidunt nulla placerat quis. Cras luctus dui a
-        lobortis pellentesque.
+      <p>
+        Welcome to RespiRate! RespiRate is a full-featured breathing rate
+        monitor for pets experiencing cardiac abnormalities.
       </p>
+      <Divider />
+      <h2>Features</h2>
+      <ul>
+        <li>
+          <Link
+            href="https://github.com/BBPTimer/respirate"
+            target="_blank"
+            rel="noreferrer"
+            underline="none"
+          >
+            Open-source
+          </Link>
+        </li>
+        <li>Web-based for access on any device</li>
+        <li>On-device data storage</li>
+        <li>Backup reminders every 30 days</li>
+        <li>Supports multiple pets</li>
+        <li>Custom timer duration</li>
+        <li>Color-coded data table with sorting, filtering, and search</li>
+        <li>Download data as CSV or PDF</li>
+        <li>Add breathing rates manually</li>
+        <li>Delete breathing rates</li>
+        <li>Download JSON copy of data for backup or to email to vet</li>
+        <li>Restore JSON copy of data</li>
+        <li>Color-coded graph</li>
+        <li>Custom date range for graph</li>
+        <li>Average breathing rate during custom date range</li>
+        <li>Change target breathing rate for each pet</li>
+      </ul>
       <br />
+      <br />
+      <Divider />
+      <h2>Data Storage</h2>
+      <p className="left-align">
+        Your pet data is stored in your browser's local storage. That means that
+        you, and you alone, own your data! However, that also makes you
+        responsible for your data. Please keep mind that if you clear your
+        browser's cache, you will also clear your browser's local storage.
+        <br />
+        <br />
+        Don't fret! The{" "}
+        <Link href="/data" underline="none">
+          Data
+        </Link>{" "}
+        page has buttons to back up your data, and then restore your data if you
+        ever need! Additionally, 30 days after your most recent backup,
+        RespiRate will show you a dialog that reminds you to back up your data,
+        with a button to back up your data.
+        <br />
+        <br />
+        You can also email your veterinarian a copy of your data backup so that
+        they may view your pet's data on their device!
+      </p>
+      <Divider />
+      <h2>Web App</h2>
+      <p>
+        Respirate looks great when installed as a web app!
+        <br />
+        <Link
+          href="https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios"
+          target="_blank"
+          rel="noreferrer"
+          underline="none"
+        >
+          iOS instructions
+        </Link>
+        <br />
+        <Link
+          href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DAndroid"
+          target="_blank"
+          rel="noreferrer"
+          underline="none"
+        >
+          Android instructions
+        </Link>
+      </p>
+      <Divider />
+      <h2>About Me</h2>
+      <AvatarGroup sx={{ justifyContent: "center", display: "flex" }}>
+        <Avatar
+          src="/avatars/Greg.png"
+          alt="Greg"
+          sx={{ width: 56, height: 56 }}
+        />
+        <Avatar
+          src="/avatars/Buster.png"
+          alt="Buster"
+          sx={{ width: 56, height: 56 }}
+        />
+        <Avatar
+          src="/avatars/Dean.png"
+          alt="Dean"
+          sx={{ width: 56, height: 56 }}
+        />
+        <Avatar
+          src="/avatars/Ted.png"
+          alt="Ted"
+          sx={{ width: 56, height: 56 }}
+        />
+      </AvatarGroup>
+      <p className="left-align">
+        My name is Greg Weseloh, and I had a dog, Buster, who had congestive
+        heart failure. Now, I have a dog, Dean, with mitral valve disease. Our
+        veterinary cardiologist recommended tracking their breathing rate to
+        monitor disease progression and help inform treatment. I found other
+        apps buggy and limited in features, so I decided to build a better app!
+        I hope that RespiRate provides you a comforting experience during a
+        difficult time in your pet's journey.
+      </p>
+      <Divider />
+      <h2>
+        <Link
+          href="https://github.com/BBPTimer/respirate/issues"
+          target="_blank"
+          rel="noreferrer"
+          underline="none"
+        >
+          Issues or feature requests?
+        </Link>
+      </h2>
       <footer>&copy; {new Date().getFullYear()} Greg Weseloh LLC</footer>
-    </>
+    </div>
   );
 };
 
