@@ -22,7 +22,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           {/* Fix Nav overlap */}
-          <Box paddingBottom="56px">
+          <Box paddingBottom="calc(56px + env(safe-area-inset-bottom))">
             <Header />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Routes>
