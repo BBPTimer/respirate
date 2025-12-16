@@ -9,7 +9,7 @@ const formatDateMMDDYYYY = (date) => {
   return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
 };
 
-const arrayAverage = (array) => {
+const rateAverage = (array) => {
   return (
     array.reduce(
       (accumulator, currentValue) => accumulator + currentValue.rate,
@@ -18,4 +18,4 @@ const arrayAverage = (array) => {
   );
 };
 
-export { arrayAverage, formatDate, formatDateMMDDYYYY };
+export { rateAverage, formatDate, formatDateMMDDYYYY };

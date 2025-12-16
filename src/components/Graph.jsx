@@ -3,12 +3,12 @@ import { Button, ButtonGroup, Typography } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { useContext, useEffect, useState } from "react";
-import { arrayAverage, formatDate, formatDateMMDDYYYY } from "../common/utils";
+import { formatDate, formatDateMMDDYYYY, rateAverage } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 import SaveButton from "./SaveButton";
 
 const Graph = () => {
-  const { pets, selectedPet, inputLabelStyle } = useContext(AppContext);
+  const { pets, selectedPet } = useContext(AppContext);
 
   const [data, setData] = useState([]);
   // Update data when selected pet changes
@@ -28,7 +28,7 @@ const Graph = () => {
             Average breathing rate between{" "}
             {formatDateMMDDYYYY(data[0].timestamp)} and{" "}
             {formatDateMMDDYYYY(data[data.length - 1].timestamp)}:{" "}
-            <b>{arrayAverage(data)}</b> breaths/minute
+            <b>{rateAverage(data)}</b> breaths/minute
           </Typography>
           <br />
         </>
@@ -76,7 +76,7 @@ const Graph = () => {
             tickLabelStyle: {
               angle: 90,
             },
-            height: 175,
+            height: data.length > 0 ? 175 : undefined,
           },
         ]}
         series={[
