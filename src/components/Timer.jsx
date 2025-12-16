@@ -161,6 +161,8 @@ const Timer = () => {
         <img
           id="heart"
           src="/heart.svg"
+          alt="Heart"
+          fetchPriority="high"
           onClick={
             isTimerRunning ? () => updateTaps(stateTaps + 1) : initializeTimer
           }

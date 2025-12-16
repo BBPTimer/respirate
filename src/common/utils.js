@@ -5,4 +5,17 @@ const formatDate = (date) => {
   );
 };
 
-export { formatDate };
+const formatDateMMDDYYYY = (date) => {
+  return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+};
+
+const arrayAverage = (array) => {
+  return (
+    array.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.rate,
+      0
+    ) / array.length
+  );
+};
+
+export { arrayAverage, formatDate, formatDateMMDDYYYY };

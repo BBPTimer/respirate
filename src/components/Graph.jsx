@@ -1,14 +1,14 @@
 import { CalendarMonth, EditCalendar } from "@mui/icons-material";
-import { Button, ButtonGroup } from "@mui/material";
+import { Button, ButtonGroup, Typography } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { useContext, useEffect, useState } from "react";
-import { formatDate } from "../common/utils";
+import { arrayAverage, formatDate, formatDateMMDDYYYY } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
 import SaveButton from "./SaveButton";
 
 const Graph = () => {
-  const { pets, selectedPet } = useContext(AppContext);
+  const { pets, selectedPet, inputLabelStyle } = useContext(AppContext);
 
   const [data, setData] = useState([]);
   // Update data when selected pet changes
@@ -18,6 +18,22 @@ const Graph = () => {
   const valueFormatter = (value) => {
     const dateObject = new Date(value);
     return formatDate(dateObject);
+  };
+
+  const dataAverage = () => {
+    if (data.length > 0) {
+      return (
+        <>
+          <Typography fontSize={12}>
+            Average breathing rate between{" "}
+            {formatDateMMDDYYYY(data[0].timestamp)} and{" "}
+            {formatDateMMDDYYYY(data[data.length - 1].timestamp)}:{" "}
+            <b>{arrayAverage(data)}</b> breaths/minute
+          </Typography>
+          <br />
+        </>
+      );
+    }
   };
 
   const [displayForm, setDisplayForm] = useState(false);
@@ -90,6 +106,7 @@ const Graph = () => {
         }}
       />
       <br />
+      {dataAverage()}
       <Button
         variant="contained"
         size="small"
