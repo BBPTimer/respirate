@@ -68,10 +68,10 @@ const About = () => {
         <Link href="/data" underline="none">
           Data
         </Link>{" "}
-        page has buttons to back up your data, and to restore your data if you
-        ever need! Additionally, 30 days after your most recent backup,
-        RespiRate will show you a dialog that reminds you to back up your data,
-        with a button to back up.
+        page has buttons to back up your data, and to restore it if you ever
+        need! Additionally, 30 days after your most recent backup, RespiRate
+        will show you a dialog that reminds you to back up your data, with a
+        button to back up.
         <br />
         <br />
         You can also email your veterinarian a copy of your data backup so that
