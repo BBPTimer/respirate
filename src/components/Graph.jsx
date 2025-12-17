@@ -5,6 +5,7 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { useContext, useEffect, useState } from "react";
 import { formatDate, formatDateMMDDYYYY, rateAverage } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
+import PetSelector from "./PetSelector";
 import SaveButton from "./SaveButton";
 
 const Graph = () => {
@@ -64,6 +65,7 @@ const Graph = () => {
 
   return (
     <>
+      <PetSelector />
       <h1>Graph</h1>
       <LineChart
         dataset={data}

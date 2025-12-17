@@ -8,7 +8,6 @@ import "./App.css";
 import About from "./components/About";
 import Data from "./components/Data";
 import Graph from "./components/Graph";
-import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Pets from "./components/Pets";
 import Timer from "./components/Timer";
@@ -23,7 +22,6 @@ function App() {
         <Router>
           {/* Fix Nav overlap */}
           <Box paddingBottom="calc(56px + env(safe-area-inset-bottom))">
-            <Header />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Routes>
                 <Route path="/" element={<Timer />} />

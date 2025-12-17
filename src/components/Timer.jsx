@@ -16,6 +16,7 @@ import { AppContext } from "../contexts/AppContext";
 import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
 import CommentTextField from "./CommentTextField";
+import PetSelector from "./PetSelector";
 import SaveButton from "./SaveButton";
 
 const Timer = () => {
@@ -127,6 +128,7 @@ const Timer = () => {
 
   return (
     <>
+      <PetSelector />
       {/* Backup dialog */}
       <Dialog
         open={isBackUpDialogOpen}

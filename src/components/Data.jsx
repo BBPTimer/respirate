@@ -16,6 +16,7 @@ import AutohideSnackbar from "./AutohideSnackBar";
 import BackUpButton from "./BackUpButton";
 import CommentTextField from "./CommentTextField";
 import ConfirmDialog from "./ConfirmDialog";
+import PetSelector from "./PetSelector";
 import RestoreButton from "./RestoreButton";
 import SaveButton from "./SaveButton";
 
@@ -135,6 +136,7 @@ const Data = () => {
 
   return (
     <>
+      <PetSelector />
       <h1>Data</h1>
       <ButtonGroup size="small">
         <BackUpButton variant={"outlined"} />
