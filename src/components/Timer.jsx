@@ -168,14 +168,16 @@ const Timer = () => {
           }
         />
         <table>
-          <tr>
-            <td>Timer:</td>
-            <td>{Math.ceil(seconds)}</td>
-          </tr>
-          <tr>
-            <td>Tap Count:</td>
-            <td>{stateTaps}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Timer:</td>
+              <td>{Math.ceil(seconds)}</td>
+            </tr>
+            <tr>
+              <td>Tap Count:</td>
+              <td>{stateTaps}</td>
+            </tr>
+          </tbody>
         </table>
         <Tooltip title="Reset">
           <IconButton onClick={() => reset(timerDuration)}>

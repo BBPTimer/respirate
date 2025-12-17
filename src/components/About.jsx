@@ -9,65 +9,12 @@ const About = () => {
       <h1>About</h1>
       <p>
         Welcome to RespiRate! RespiRate is a full-featured breathing rate
-        monitor for pets experiencing cardiac abnormalities.
-      </p>
-      <Divider />
-      <h2>Features</h2>
-      <ul>
-        <li>
-          <Link
-            href="https://github.com/BBPTimer/respirate"
-            target="_blank"
-            rel="noreferrer"
-            underline="none"
-          >
-            Open-source
-          </Link>
-        </li>
-        <li>Web-based for access on any device</li>
-        <li>On-device data storage</li>
-        <li>Backup reminders every 30 days</li>
-        <li>Supports multiple pets</li>
-        <li>Custom timer duration</li>
-        <li>Color-coded data table with sorting, filtering, and search</li>
-        <li>Download data as CSV or PDF</li>
-        <li>Add breathing rates manually</li>
-        <li>Delete breathing rates</li>
-        <li>Download JSON copy of data for backup or to email to vet</li>
-        <li>Restore JSON copy of data</li>
-        <li>Color-coded graph</li>
-        <li>Custom date range for graph</li>
-        <li>Average breathing rate during custom date range</li>
-        <li>Change target breathing rate for each pet</li>
-      </ul>
-      <br />
-      <br />
-      <Divider />
-      <h2>Data Storage</h2>
-      <p className="left-align">
-        Your pet data is stored in your browser's local storage. That means that
-        you, and you alone, own your data! However, that also makes you
-        responsible for your data. Please keep mind that if you clear your
-        browser's cache, you will also clear your browser's local storage.
-        <br />
-        <br />
-        Don't fret! The{" "}
-        <Link href="/data" underline="none">
-          Data
-        </Link>{" "}
-        page has buttons to back up your data, and then restore your data if you
-        ever need! Additionally, 30 days after your most recent backup,
-        RespiRate will show you a dialog that reminds you to back up your data,
-        with a button to back up your data.
-        <br />
-        <br />
-        You can also email your veterinarian a copy of your data backup so that
-        they may view your pet's data on their device!
+        monitor for pets experiencing cardiac abnormalities.{" "}
       </p>
       <Divider />
       <h2>Web App</h2>
       <p>
-        Respirate looks great when installed as a web app!
+        RespiRate works best when installed as a web app!
         <br />
         <Link
           href="https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/ios"
@@ -88,7 +35,50 @@ const About = () => {
         </Link>
       </p>
       <Divider />
-      <h2>About Me</h2>
+      <h2>Features</h2>
+      <ul>
+        <li>Supports multiple pets</li>
+        <li>Change target breathing rate for each pet</li>
+        <li>Custom timer duration</li>
+        <li>Color-coded data table with sorting, filtering, and search</li>
+        <li>Download data as CSV or PDF</li>
+        <li>Add breathing rates manually</li>
+        <li>Delete breathing rates</li>
+        <li>Download JSON copy of data for backup or to email to vet</li>
+        <li>Restore JSON copy of data</li>
+        <li>Color-coded graph</li>
+        <li>Custom date range for graph</li>
+        <li>Average breathing rate during custom date range</li>
+        <li>Web-based for access on any device</li>
+        <li>On-device data storage</li>
+        <li>Backup reminders every 30 days</li>
+      </ul>
+      <br />
+      <br />
+      <Divider />
+      <h2>Data Storage</h2>
+      <p className="left-align">
+        Your pet data is stored in your browser's local storage. That means that
+        you, and you alone, own your data! However, that also makes you
+        responsible for your data. Please keep mind that if you clear your
+        browser's cache, you will also clear your browser's local storage.
+        <br />
+        <br />
+        Don't fret! The{" "}
+        <Link href="/data" underline="none">
+          Data
+        </Link>{" "}
+        page has buttons to back up your data, and to restore your data if you
+        ever need! Additionally, 30 days after your most recent backup,
+        RespiRate will show you a dialog that reminds you to back up your data,
+        with a button to back up.
+        <br />
+        <br />
+        You can also email your veterinarian a copy of your data backup so that
+        they may view your pet's data on their device!
+      </p>
+      <Divider />
+      <h2>About Us</h2>
       <AvatarGroup sx={{ justifyContent: "center", display: "flex" }}>
         <Avatar
           src="/avatars/Greg.png"
@@ -113,7 +103,7 @@ const About = () => {
       </AvatarGroup>
       <p className="left-align">
         My name is Greg Weseloh, and I had a dog, Buster, who had congestive
-        heart failure. Now, I have a dog, Dean, with mitral valve disease. Our
+        heart failure. Now I have a dog, Dean, with mitral valve disease. Our
         veterinary cardiologist recommended tracking their breathing rate to
         monitor disease progression and help inform treatment. I found other
         apps buggy and limited in features, so I decided to build a better app!
@@ -122,12 +112,7 @@ const About = () => {
       </p>
       <Divider />
       <h2>
-        <Link
-          href="https://github.com/BBPTimer/respirate/issues"
-          target="_blank"
-          rel="noreferrer"
-          underline="none"
-        >
+        <Link href="mailto:greg@respirate.app" underline="none">
           Issues or feature requests?
         </Link>
       </h2>

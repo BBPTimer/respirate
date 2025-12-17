@@ -10,7 +10,7 @@ const formatDateMMDDYYYY = (date) => {
 };
 
 const rateAverage = (array) => {
-  return (
+  return Math.round(
     array.reduce(
       (accumulator, currentValue) => accumulator + currentValue.rate,
       0
@@ -18,4 +18,4 @@ const rateAverage = (array) => {
   );
 };
 
-export { rateAverage, formatDate, formatDateMMDDYYYY };
+export { formatDate, formatDateMMDDYYYY, rateAverage };
