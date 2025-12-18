@@ -18,6 +18,7 @@ const Pets = () => {
   const {
     pets,
     storePets,
+    selectedPet,
     storeselectedPet,
     setIsSnackbarOpen,
     setSnackbarMessage,
@@ -79,12 +80,38 @@ const Pets = () => {
     );
   };
 
+  const sortByName = (array) => {
+    array.sort((a, b) => {
+      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    });
+  };
+
+  const findIndexByName = (array, name) => {
+    for (let [index, element] of array.entries()) {
+      if (element.name === name) {
+        return index;
+      }
+    }
+    return 0;
+  };
+
   const handleSave = (event, index) => {
     event.preventDefault();
 
     let updatedPets = [...pets];
     updatedPets[index].name = event.target.name.value;
     updatedPets[index].targetRate = parseInt(event.target.targetRate.value);
+    sortByName(updatedPets);
     storePets(updatedPets);
 
     setSnackbarMessage("Pet saved.");
@@ -100,6 +127,9 @@ const Pets = () => {
   };
 
   const handleDelete = (index) => {
+    // Store currently selected pet name
+    const selectedPetName = pets[selectedPet].name;
+
     let updatedPets = [...pets];
     updatedPets.splice(index, 1);
 
@@ -108,7 +138,7 @@ const Pets = () => {
     }
 
     storePets(updatedPets);
-    storeselectedPet(0);
+    storeselectedPet(findIndexByName(updatedPets, selectedPetName));
 
     cleanUpConfirm();
   };
@@ -129,8 +159,9 @@ const Pets = () => {
     updatedPets.push(
       new Pet(event.target.name.value, parseInt(event.target.targetRate.value))
     );
+    sortByName(updatedPets);
     storePets(updatedPets);
-    storeselectedPet(updatedPets.length - 1);
+    storeselectedPet(findIndexByName(updatedPets, event.target.name.value));
 
     // Close form
     setDisplayForm(false);
