@@ -43,22 +43,15 @@ const Graph = () => {
   const handleDateRange = (event) => {
     event.preventDefault();
 
-    // Default values
-    let startDate = new Date(0);
-    let endDate = new Date();
-
-    // Update value if user chooses dates
-    if (event.target.startDate.value) {
-      startDate = new Date(event.target.startDate.value);
-    }
-
-    if (event.target.endDate.value) {
-      endDate = new Date(event.target.endDate.value);
-    }
+    let startDate = new Date(event.target.startDate.value);
+    let endDate = new Date(event.target.endDate.value);
 
     setData(
       pets[selectedPet].rateHistory.filter(
-        (rate) => rate.timestamp >= startDate && rate.timestamp <= endDate
+        (rate) =>
+          rate.timestamp >= startDate &&
+          // Include end date by adding 1 day
+          rate.timestamp <= new Date(endDate.valueOf() + 24 * 60 * 60 * 1000)
       )
     );
   };
