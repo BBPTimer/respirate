@@ -111,6 +111,13 @@ const About = () => {
         difficult time in your pet's journey.
       </p>
       <Divider />
+      <h2>For Vets</h2>
+      <Link href="/flyer.png" target="_blank" underline="none">
+        Flyer with QR code
+      </Link>
+      <br />
+      <br />
+      <Divider />
       <h2>
         <Link href="mailto:greg@respirate.app" underline="none">
           Issues or feature requests?
