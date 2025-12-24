@@ -40,6 +40,7 @@ const About = () => {
         <li>Supports multiple pets</li>
         <li>Change target breathing rate for each pet</li>
         <li>Custom timer duration</li>
+        <li>Optional comment for each breathing rate</li>
         <li>Color-coded data table with sorting, filtering, and search</li>
         <li>Download data as CSV or PDF</li>
         <li>Add breathing rates manually</li>
@@ -106,9 +107,9 @@ const About = () => {
         heart failure. Now I have a dog, Dean, with mitral valve disease. Our
         veterinary cardiologist recommended tracking their breathing rate to
         monitor disease progression and help inform treatment. I found other
-        apps buggy and limited in features, so I decided to build a better app!
-        I hope that RespiRate provides you a comforting experience during a
-        difficult time in your pet's journey.
+        apps buggy and limited in features, so I decided to build a better
+        option! I hope that RespiRate provides you a comforting experience
+        during a difficult time in your pet's journey.
       </p>
       <Divider />
       <h2>For Vets</h2>
