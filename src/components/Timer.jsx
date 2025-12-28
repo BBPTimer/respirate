@@ -166,7 +166,6 @@ const Timer = () => {
           height={300}
           width={300}
           alt="Heart"
-          fetchPriority="high"
           onClick={
             isTimerRunning ? () => updateTaps(stateTaps + 1) : initializeTimer
           }
