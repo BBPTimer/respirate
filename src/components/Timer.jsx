@@ -163,6 +163,8 @@ const Timer = () => {
         <img
           id="heart"
           src="/heart.svg"
+          height={300}
+          width={300}
           alt="Heart"
           fetchPriority="high"
           onClick={
