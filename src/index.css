@@ -1,30 +1,37 @@
+h1,
+h2 {
+  margin: 1em 0;
+}
+
+.left-align,
+td,
+ul {
+  text-align: left;
+}
+
 * {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 body {
   text-align: center;
-  background-color: #fffafa;
+  background-color: snow;
 }
 
 h1 {
   font-size: 1.17em;
-  margin: 1em 0;
 }
 
 h2 {
   font-size: 1em;
-  margin: 1em 0;
 }
 
 .white-bg {
-  background-color: white;
-
-  border: 1px solid lightgray;
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
   border-radius: 5px;
-
   padding: 10px;
-  margin: 10px 0px;
+  margin: 10px 0;
 }
 
 #heart:active {
@@ -33,10 +40,6 @@ h2 {
 
 table {
   margin: auto;
-}
-
-td {
-  text-align: left;
 }
 
 input {
@@ -57,14 +60,11 @@ input {
 }
 
 .left-align {
-  text-align: left;
   padding: 0 5%;
 }
 
 ul {
   display: inline-block;
-  text-align: left;
-
   margin: 0;
 }
 
