@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
+import { AppContext } from "../../contexts/AppContext";
 
 export default function ConfirmDialog() {
   const { isConfirmOpen, confirmMessage, confirmCallback, cleanUpConfirm } =

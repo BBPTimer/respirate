@@ -12,13 +12,13 @@ import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { formatDate } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
-import AutohideSnackbar from "./AutohideSnackBar";
-import BackUpButton from "./BackUpButton";
-import CommentTextField from "./CommentTextField";
-import ConfirmDialog from "./ConfirmDialog";
-import PetSelector from "./PetSelector";
-import RestoreButton from "./RestoreButton";
-import SaveButton from "./SaveButton";
+import AutohideSnackbar from "./ui/AutohideSnackBar";
+import BackUpButton from "./ui/BackUpButton";
+import CommentTextField from "./ui/CommentTextField";
+import ConfirmDialog from "./ui/ConfirmDialog";
+import PetSelector from "./ui/PetSelector";
+import RestoreButton from "./ui/RestoreButton";
+import SaveButton from "./ui/SaveButton";
 
 const Data = () => {
   const {

@@ -1,6 +1,6 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
+import { AppContext } from "../../contexts/AppContext";
 
 const PetSelector = () => {
   const { pets, selectedPet, storeselectedPet } = useContext(AppContext);

@@ -10,9 +10,9 @@ import {
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
 import { AppContext } from "../contexts/AppContext";
-import AutohideSnackbar from "./AutohideSnackBar";
-import ConfirmDialog from "./ConfirmDialog";
-import SaveButton from "./SaveButton";
+import AutohideSnackbar from "./ui/AutohideSnackBar";
+import ConfirmDialog from "./ui/ConfirmDialog";
+import SaveButton from "./ui/SaveButton";
 
 const Pets = () => {
   const {

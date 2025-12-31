@@ -1,12 +1,19 @@
-import { CalendarMonth, EditCalendar } from "@mui/icons-material";
+import {
+  AreaChart,
+  CalendarMonth,
+  DonutLarge,
+  EditCalendar,
+  PieChart as PieChartIcon,
+} from "@mui/icons-material";
 import { Button, ButtonGroup, Typography } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { PieChart } from "@mui/x-charts/PieChart";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { useContext, useEffect, useState } from "react";
 import { formatDate, formatDateMMDDYYYY, rateAverage } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
-import PetSelector from "./PetSelector";
-import SaveButton from "./SaveButton";
+import PetSelector from "./ui/PetSelector";
+import SaveButton from "./ui/SaveButton";
 
 const Graph = () => {
   const { pets, selectedPet } = useContext(AppContext);
@@ -14,6 +21,11 @@ const Graph = () => {
   const [data, setData] = useState([]);
   // Update data when selected pet changes
   useEffect(() => setData([...pets[selectedPet].rateHistory]), [selectedPet]);
+
+  // Chart type
+  const [chartType, setChartType] = useState("line");
+
+  const valueFormatterPie = (item) => item.value + "%";
 
   // Formats chart x-axis
   const valueFormatter = (value) => {
@@ -60,46 +72,104 @@ const Graph = () => {
     <>
       <PetSelector />
       <h1>Graph</h1>
-      <LineChart
-        dataset={data}
-        xAxis={[
-          {
-            dataKey: "timestamp",
-            label: "Date",
-            valueFormatter: valueFormatter,
-            scaleType: "band",
-            tickLabelStyle: {
-              angle: 90,
+      <ButtonGroup size="small">
+        <Button onClick={() => setChartType("line")} startIcon={<AreaChart />}>
+          Line
+        </Button>
+        <Button
+          onClick={() => setChartType("pie")}
+          startIcon={<PieChartIcon />}
+        >
+          Pie
+        </Button>
+      </ButtonGroup>
+      <br />
+      <br />
+      {chartType === "line" && (
+        <LineChart
+          dataset={data}
+          xAxis={[
+            {
+              dataKey: "timestamp",
+              label: "Date",
+              valueFormatter: valueFormatter,
+              scaleType: "band",
+              tickLabelStyle: {
+                angle: 90,
+              },
+              height: data.length > 0 ? 175 : undefined,
             },
-            height: data.length > 0 ? 175 : undefined,
-          },
-        ]}
-        series={[
-          {
-            dataKey: "rate",
-            valueFormatter: (value) => value + " breaths/minute",
-            color: "Red",
-          },
-        ]}
-        yAxis={[
-          {
-            label: "Breathing Rate",
-            colorMap: {
-              type: "piecewise",
-              thresholds: [parseInt(pets[selectedPet].targetRate) + 1],
-              colors: ["Green", "#f44336"],
+          ]}
+          series={[
+            {
+              dataKey: "rate",
+              valueFormatter: (value) => value + " breaths/minute",
+              color: "Red",
             },
-          },
-        ]}
-        grid={{ horizontal: true }}
-        height={400}
-        sx={{
-          backgroundColor: "white",
-          border: 1,
-          borderColor: "lightgray",
-          borderRadius: "5px",
-        }}
-      />
+          ]}
+          yAxis={[
+            {
+              label: "Breathing Rate",
+              colorMap: {
+                type: "piecewise",
+                thresholds: [parseInt(pets[selectedPet].targetRate) + 1],
+                colors: ["#4caf50", "#f44336"],
+              },
+            },
+          ]}
+          grid={{ horizontal: true }}
+          height={400}
+          sx={{
+            backgroundColor: "white",
+            border: 1,
+            borderColor: "lightgray",
+            borderRadius: "5px",
+          }}
+        />
+      )}
+      {chartType === "pie" && data.length === 0 && <p>No data to display</p>}
+      {chartType === "pie" && data.length > 0 && (
+        <PieChart
+          series={[
+            {
+              innerRadius: 75,
+              valueFormatter: valueFormatterPie,
+              arcLabel: valueFormatterPie,
+              arcLabelMinAngle: 35,
+              highlightScope: { fade: "global", highlight: "item" },
+              faded: { color: "Gray" },
+              data: [
+                {
+                  value: Math.round(
+                    (data.filter(
+                      (datapoint) =>
+                        datapoint.rate <= pets[selectedPet].targetRate
+                    ).length /
+                      data.length) *
+                      100
+                  ),
+                  label: "At or below target rate",
+                  color: "#4caf50",
+                },
+                {
+                  value: Math.round(
+                    (data.filter(
+                      (datapoint) =>
+                        datapoint.rate > pets[selectedPet].targetRate
+                    ).length /
+                      data.length) *
+                      100
+                  ),
+                  label: "Above target rate",
+                  color: "#f44336",
+                },
+              ],
+            },
+          ]}
+          height={300}
+          hideLegend
+        />
+      )}
       <br />
       {dataAverage()}
       <Button

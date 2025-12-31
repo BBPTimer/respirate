@@ -1,6 +1,6 @@
 import { InputLabel, TextField } from "@mui/material";
 import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
+import { AppContext } from "../../contexts/AppContext";
 
 const CommentTextField = () => {
   const { inputLabelStyle } = useContext(AppContext);

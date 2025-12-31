@@ -14,13 +14,19 @@ import {
 import { useContext, useRef, useState } from "react";
 import { preload } from "react-dom";
 import { AppContext } from "../contexts/AppContext";
-import AutohideSnackbar from "./AutohideSnackBar";
-import BackUpButton from "./BackUpButton";
-import CommentTextField from "./CommentTextField";
-import PetSelector from "./PetSelector";
-import SaveButton from "./SaveButton";
+import AutohideSnackbar from "./ui/AutohideSnackBar";
+import BackUpButton from "./ui/BackUpButton";
+import CommentTextField from "./ui/CommentTextField";
+import PetSelector from "./ui/PetSelector";
+import SaveButton from "./ui/SaveButton";
 
 const Timer = () => {
+  new PerformanceObserver((entryList) => {
+    for (const entry of entryList.getEntries()) {
+      console.log("LCP candidate:", entry.startTime, entry);
+    }
+  }).observe({ type: "largest-contentful-paint", buffered: true });
+
   preload("/heart.svg", { as: "image", fetchPriority: "high" });
 
   const {

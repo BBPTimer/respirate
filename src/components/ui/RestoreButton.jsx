@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
+import { AppContext } from "../../contexts/AppContext";
 import AutohideSnackbar from "./AutohideSnackBar";
 
 const VisuallyHiddenInput = styled("input")({

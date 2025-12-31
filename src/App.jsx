@@ -8,7 +8,7 @@ import "./App.css";
 import About from "./components/About";
 import Data from "./components/Data";
 import Graph from "./components/Graph";
-import Nav from "./components/Nav";
+import Nav from "./components/ui/Nav";
 import Pets from "./components/Pets";
 import Timer from "./components/Timer";
 import { AppContext } from "./contexts/AppContext";
