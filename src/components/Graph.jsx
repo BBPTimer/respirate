@@ -1,7 +1,6 @@
 import {
   AreaChart,
   CalendarMonth,
-  DonutLarge,
   EditCalendar,
   PieChart as PieChartIcon,
 } from "@mui/icons-material";
@@ -16,14 +15,11 @@ import PetSelector from "./ui/PetSelector";
 import SaveButton from "./ui/SaveButton";
 
 const Graph = () => {
-  const { pets, selectedPet } = useContext(AppContext);
+  const { pets, selectedPet, chartType, setChartType } = useContext(AppContext);
 
   const [data, setData] = useState([]);
   // Update data when selected pet changes
   useEffect(() => setData([...pets[selectedPet].rateHistory]), [selectedPet]);
-
-  // Chart type
-  const [chartType, setChartType] = useState("line");
 
   const valueFormatterPie = (item) => item.value + "%";
 

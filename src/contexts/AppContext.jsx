@@ -117,6 +117,8 @@ export const AppContextProvider = ({ children }) => {
     setConfirmCallback(null);
   };
 
+  const [chartType, setChartType] = useState("line");
+
   const inputLabelStyle = { fontSize: 12 };
 
   return (
@@ -145,6 +147,8 @@ export const AppContextProvider = ({ children }) => {
         setConfirmCallback,
         cleanUpConfirm,
         inputLabelStyle,
+        chartType,
+        setChartType,
       }}
     >
       {children}
