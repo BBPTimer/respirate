@@ -114,12 +114,12 @@ const Graphs = () => {
             {
               dataKey: "rate",
               valueFormatter: (value) => value + " breaths/minute",
-              color: "Red",
             },
           ]}
           yAxis={[
             {
               label: "Breathing Rate",
+              tickMinStep: 1,
               colorMap: {
                 type: "piecewise",
                 thresholds: [parseInt(pets[selectedPet].targetRate) + 1 / 1000],
