@@ -10,7 +10,7 @@ const Nav = () => {
   const pathToIndex = {
     "/": 0,
     "/data": 1,
-    "/graph": 2,
+    "/graphs": 2,
     "/pets": 3,
     "/about": 4,
   };
@@ -21,7 +21,7 @@ const Nav = () => {
   // Handler for navigation changes
   const handleChange = (event, newValue) => {
     // Map indices back to paths
-    const paths = ["/", "/data", "/graph", "/pets", "/about"];
+    const paths = ["/", "/data", "/graphs", "/pets", "/about"];
     navigate(paths[newValue]);
   };
 
@@ -39,7 +39,7 @@ const Nav = () => {
       <BottomNavigation value={value} onChange={handleChange} showLabels>
         <BottomNavigationAction label="Timer" icon={<Timer />} />
         <BottomNavigationAction label="Data" icon={<TableChart />} />
-        <BottomNavigationAction label="Graph" icon={<AreaChart />} />
+        <BottomNavigationAction label="Graphs" icon={<AreaChart />} />
         <BottomNavigationAction label="Pets" icon={<Pets />} />
         <BottomNavigationAction label="About" icon={<Info />} />
       </BottomNavigation>

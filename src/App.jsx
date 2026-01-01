@@ -7,10 +7,10 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router";
 import "./App.css";
 import About from "./components/About";
 import Data from "./components/Data";
-import Graph from "./components/Graph";
-import Nav from "./components/ui/Nav";
+import Graphs from "./components/Graphs";
 import Pets from "./components/Pets";
 import Timer from "./components/Timer";
+import Nav from "./components/ui/Nav";
 import { AppContext } from "./contexts/AppContext";
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Timer />} />
                 <Route path="/data" element={<Data />} />
-                <Route path="/graph" element={<Graph />} />
+                <Route path="/graphs" element={<Graphs />} />
                 <Route path="/pets" element={<Pets />} />
                 <Route path="/about" element={<About />} />
                 <Route path="*" element={<Navigate to="/" />} />

@@ -4,7 +4,11 @@ import {
   EditCalendar,
   PieChart as PieChartIcon,
 } from "@mui/icons-material";
-import { Button, ButtonGroup, Typography } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Typography
+} from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
@@ -14,12 +18,18 @@ import { AppContext } from "../contexts/AppContext";
 import PetSelector from "./ui/PetSelector";
 import SaveButton from "./ui/SaveButton";
 
-const Graph = () => {
+const Graphs = () => {
   const { pets, selectedPet, chartType, setChartType } = useContext(AppContext);
 
   const [data, setData] = useState([]);
   // Update data when selected pet changes
   useEffect(() => setData([...pets[selectedPet].rateHistory]), [selectedPet]);
+
+  const handleChartType = (event, newChartType) => {
+    if (newChartType !== null) {
+      setChartType(newChartType);
+    }
+  };
 
   const valueFormatterPie = (item) => item.value + "%";
 
@@ -67,18 +77,37 @@ const Graph = () => {
   return (
     <>
       <PetSelector />
-      <h1>Graph</h1>
-      <ButtonGroup size="small">
-        <Button onClick={() => setChartType("line")} startIcon={<AreaChart />}>
+      <h1>Graphs</h1>
+      <ButtonGroup size="small" disableElevation>
+        <Button
+          variant={chartType === "line" ? "contained" : "outlined"}
+          onClick={() => setChartType("line")}
+          startIcon={<AreaChart />}
+        >
           Line
         </Button>
         <Button
+          variant={chartType === "pie" ? "contained" : "outlined"}
           onClick={() => setChartType("pie")}
           startIcon={<PieChartIcon />}
         >
           Pie
         </Button>
       </ButtonGroup>
+      {/* <ToggleButtonGroup
+        value={chartType}
+        exclusive
+        onChange={handleChartType}
+        color="primary"
+        size="small"
+      >
+        <ToggleButton value="line">
+          <AreaChart />Line
+        </ToggleButton>
+        <ToggleButton value="pie">
+          <PieChartIcon />Pie
+        </ToggleButton>
+      </ToggleButtonGroup> */}
       <br />
       <br />
       {chartType === "line" && (
@@ -163,7 +192,16 @@ const Graph = () => {
             },
           ]}
           height={300}
-          hideLegend
+          width={300}
+          slotProps={{
+            legend: {
+              direction: "horizontal",
+              position: {
+                vertical: "top",
+                horizontal: "center",
+              },
+            },
+          }}
         />
       )}
       <br />
@@ -212,4 +250,4 @@ const Graph = () => {
   );
 };
 
-export default Graph;
+export default Graphs;

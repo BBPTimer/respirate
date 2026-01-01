@@ -47,8 +47,8 @@ const About = () => {
         <li>Delete breathing rates</li>
         <li>Download JSON copy of data for backup or to email to vet</li>
         <li>Restore JSON copy of data</li>
-        <li>Color-coded graph</li>
-        <li>Custom date range for graph</li>
+        <li>Color-coded graphs</li>
+        <li>Custom date range for graphs</li>
         <li>Average breathing rate during custom date range</li>
         <li>Web-based for access on any device</li>
         <li>On-device data storage</li>
