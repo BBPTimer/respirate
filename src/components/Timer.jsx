@@ -21,12 +21,6 @@ import PetSelector from "./ui/PetSelector";
 import SaveButton from "./ui/SaveButton";
 
 const Timer = () => {
-  new PerformanceObserver((entryList) => {
-    for (const entry of entryList.getEntries()) {
-      console.log("LCP candidate:", entry.startTime, entry);
-    }
-  }).observe({ type: "largest-contentful-paint", buffered: true });
-
   preload("/heart.svg", { as: "image", fetchPriority: "high" });
 
   const {
