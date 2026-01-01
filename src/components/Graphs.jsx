@@ -9,6 +9,7 @@ import { Button, ButtonGroup, Typography } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { formatDate, formatDateMMDDYYYY, rateAverage } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
@@ -223,6 +224,7 @@ const Graphs = () => {
             disableFuture
             name="endDate"
             slotProps={dateTimePickerStyle}
+            defaultValue={dayjs()}
           />
           <br />
           <br />

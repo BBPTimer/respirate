@@ -180,7 +180,7 @@ const Data = () => {
           <br />
           <br />
           <MobileDateTimePicker
-            defaultValue={dayjs(new Date())}
+            defaultValue={dayjs()}
             disableFuture
             name="timestamp"
             slotProps={{ textField: { size: "small", required: true } }}
