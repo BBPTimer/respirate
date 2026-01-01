@@ -117,6 +117,10 @@ const About = () => {
         Flyer with QR code
       </Link>
       <br />
+      <Link href="/respirateBackup.json" download={"respirateBackup"} underline="none">
+        Download sample data
+      </Link>
+      <br />
       <br />
       <Divider />
       <h2>
