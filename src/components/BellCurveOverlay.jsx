@@ -1,5 +1,6 @@
 // https://mui.com/x/react-charts/composition/
 
+import { Typography } from "@mui/material";
 import { ChartContainer } from "@mui/x-charts/ChartContainer";
 import { ChartsReferenceLine } from "@mui/x-charts/ChartsReferenceLine";
 import { ChartsXAxis } from "@mui/x-charts/ChartsXAxis";
@@ -23,10 +24,21 @@ function normalDistribution(x, mean, stdDev) {
   return (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
 }
 
+const calculateMedian = (values) => {
+  values.sort((a, b) => a - b);
+
+  const half = Math.floor(values.length / 2);
+
+  return values.length % 2
+    ? values[half]
+    : (values[half - 1] + values[half]) / 2;
+};
+
 const BellCurveOverlay = ({ data }) => {
   const { pets, selectedPet } = useContext(AppContext);
 
   const { mean, stdDev } = calculateStatistics(data);
+  const median = calculateMedian(data);
 
   // Generate bell curve data
   const min = Math.min(...data);
@@ -74,7 +86,7 @@ const BellCurveOverlay = ({ data }) => {
   });
 
   return (
-    <div className="white-bg" style={{ width: "100%" }}>
+    <div className="white-bg">
       <ChartContainer
         series={[
           {
@@ -96,7 +108,8 @@ const BellCurveOverlay = ({ data }) => {
         xAxis={[
           {
             data: xValues,
-            min: min - range * 0.1,
+            // Absolute minimum of 0
+            min: min - range * 0.1 > 0 ? min - range * 0.1 : 0,
             max: max + range * 0.1,
             label: "Breathing Rate",
             tickMinStep: 1,
@@ -124,22 +137,54 @@ const BellCurveOverlay = ({ data }) => {
           labelAlign="start"
         />
         <ChartsReferenceLine
-          x={mean - stdDev}
-          label="-1σ"
-          lineStyle={{ strokeWidth: 1, strokeDasharray: "5 5" }}
-          labelStyle={{ fontSize: 14 }}
+          id="median"
+          x={median}
+          label="Median"
+          lineStyle={{
+            strokeWidth: 1,
+            strokeDasharray: "10 5",
+            stroke: "gray",
+          }}
+          labelStyle={{ fontSize: 14, fill: "gray" }}
           labelAlign="start"
+          spacing={{ y: 20 }}
         />
+        {/* Hide reference line if it renders outside the x-axis minimum */}
+        {mean - stdDev >= min - range * 0.1 && (
+          <ChartsReferenceLine
+            x={mean - stdDev}
+            label="-1σ"
+            lineStyle={{ strokeWidth: 1, strokeDasharray: "5 5" }}
+            labelStyle={{ fontSize: 14 }}
+            labelAlign="start"
+            spacing={{ y: 40 }}
+          />
+        )}
         <ChartsReferenceLine
           x={mean + stdDev}
           label="+1σ"
           lineStyle={{ strokeWidth: 1, strokeDasharray: "5 5" }}
           labelStyle={{ fontSize: 14 }}
           labelAlign="start"
+          spacing={{ y: 60 }}
         />
         <ChartsXAxis />
         <ChartsYAxis />
       </ChartContainer>
+      <Typography fontSize={10}>
+        <b>Caveat!</b>
+        <p className="justified">
+          Your pet's breathing rate data won't fit a normal distribution as
+          shown here; it will fit a more positive skew (+
+          <b>{((3 * (mean - median)) / stdDev).toFixed(1)}</b>). That means that
+          you will see more outliers on the right side of the scatter plot, and
+          a lower median than mean. While not a perfect fit, this bell curve
+          still helps visualize outlier measurements. If you want to perform
+          more sophisticated statistical modeling, I recommend that you export
+          your pet's data as a CSV file from the Data table, and then utilize a
+          stats package such as R, SPSS, SAS, etc.
+        </p>
+      </Typography>
     </div>
   );
 };

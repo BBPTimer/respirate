@@ -3,10 +3,10 @@ h2 {
   margin: 1em 0;
 }
 
-.left-align,
+.justified,
 td,
 ul {
-  text-align: left;
+  text-align: justify;
 }
 
 * {
@@ -63,7 +63,7 @@ input {
   line-height: 1.6;
 }
 
-.left-align {
+.justified {
   padding: 0 5%;
 }
 

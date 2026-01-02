@@ -171,7 +171,7 @@ const Data = () => {
                 inputMode: "numeric",
                 pattern: "[0-9]*",
                 min: "1",
-                max: "999",
+                max: "99",
               },
             }}
             sx={{ width: "180px" }}

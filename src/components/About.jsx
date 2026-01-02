@@ -58,7 +58,7 @@ const About = () => {
       <br />
       <Divider />
       <h2>Data Storage</h2>
-      <p className="left-align">
+      <p className="justified">
         Your pet data is stored in your browser's local storage. That means that
         you, and you alone, own your data! However, that also makes you
         responsible for your data. Please keep mind that if you clear your
@@ -102,7 +102,7 @@ const About = () => {
           sx={{ width: 56, height: 56 }}
         />
       </AvatarGroup>
-      <p className="left-align">
+      <p className="justified">
         My name is Greg Weseloh, and I had a dog, Buster, who had congestive
         heart failure. Now I have a dog, Dean, with mitral valve disease. Our
         veterinary cardiologist recommended tracking their breathing rate to

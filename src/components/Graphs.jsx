@@ -147,6 +147,7 @@ const Graphs = () => {
       {chartType === "pie" && data.length === 0 && <p>No data to display</p>}
       {chartType === "pie" && data.length > 0 && (
         <div className="white-bg">
+          <Typography>Breathing Rates</Typography>
           <PieChart
             series={[
               {
