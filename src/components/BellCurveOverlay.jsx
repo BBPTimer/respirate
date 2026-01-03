@@ -171,19 +171,17 @@ const BellCurveOverlay = ({ data }) => {
         <ChartsXAxis />
         <ChartsYAxis />
       </ChartContainer>
-      <Typography fontSize={10}>
-        <b>Caveat!</b>
-        <p className="justified">
-          Your pet's breathing rate data won't fit a normal distribution as
-          shown here; it will fit a more positive skew (+
-          <b>{((3 * (mean - median)) / stdDev).toFixed(1)}</b>). That means that
-          you will see more outliers on the right side of the scatter plot, and
-          a lower median than mean. While not a perfect fit, this bell curve
-          still helps visualize outlier measurements. If you want to perform
-          more sophisticated statistical modeling, I recommend that you export
-          your pet's data as a CSV file from the Data table, and then utilize a
-          stats package such as R, SPSS, SAS, etc.
-        </p>
+      <b style={{ fontSize: 10 }}>Caveat!</b>
+      <Typography fontSize={10} className="justified">
+        Your pet's breathing rate data won't fit a normal distribution as shown
+        here; it will fit a more positive skew (+
+        <b>{((3 * (mean - median)) / stdDev).toFixed(1)}</b>). That means that
+        you will see more outliers on the right side of the scatter plot, and a
+        lower median than mean. While not a perfect fit, this bell curve still
+        helps visualize outlier measurements. If you want to perform more
+        sophisticated statistical modeling, I recommend that you export your
+        pet's data as a CSV file from the Data table, and then utilize a stats
+        package such as R, SPSS, SAS, etc.
       </Typography>
     </div>
   );

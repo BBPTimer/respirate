@@ -79,6 +79,13 @@ const Graphs = () => {
         >
           Line
         </Button>
+        {/* <Button
+          variant={chartType === "histogram" ? "contained" : "outlined"}
+          onClick={() => setChartType("histogram")}
+          startIcon={<BarChart />}
+        >
+          Histogram
+        </Button> */}
         <Button
           variant={chartType === "scatter" ? "contained" : "outlined"}
           onClick={() => setChartType("scatter")}
@@ -119,7 +126,7 @@ const Graphs = () => {
           ]}
           yAxis={[
             {
-              label: "Breathing Rate",
+              label: "Breathing Rate (breaths/minute)",
               tickMinStep: 1,
               colorMap: {
                 type: "piecewise",
@@ -138,6 +145,12 @@ const Graphs = () => {
           }}
         />
       )}
+      {/* {chartType === "histogram" && data.length < 3 && (
+        <p>Must have at least 3 datapoints for histogram</p>
+      )}
+      {chartType === "histogram" && data.length >= 3 && (
+        <Histogram data={data.map((rateObj) => rateObj.rate)} />
+      )} */}
       {chartType === "scatter" && data.length < 3 && (
         <p>Must have at least 3 datapoints for scatter plot</p>
       )}

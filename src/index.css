@@ -3,12 +3,6 @@ h2 {
   margin: 1em 0;
 }
 
-.justified,
-td,
-ul {
-  text-align: justify;
-}
-
 * {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
@@ -61,6 +55,12 @@ input {
 #about {
   font-size: 15px;
   line-height: 1.6;
+}
+
+.justified,
+td,
+ul {
+  text-align: justify;
 }
 
 .justified {
