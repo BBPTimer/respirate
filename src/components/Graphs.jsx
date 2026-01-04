@@ -80,9 +80,12 @@ const Graphs = () => {
       <br />
       <br />
       {chartType === "line" && <Line data={data} />}
-      {chartType === "histogram" && (
+      {chartType === "histogram" && data.length === 0 && (
+        <Typography>No data to display</Typography>
+      )}
+      {chartType === "histogram" && data.length > 0 && (
         <div className="white-bg">
-          <Typography fontSize={14} fontWeight={"bold"}>
+          <Typography fontSize={14} fontStyle={"italic"}>
             Frequency of breathing rate measurements from{" "}
             {formatDateMMDDYYYY(data[0].timestamp)}
             {" to "}
