@@ -54,7 +54,10 @@ const Histogram = ({ data }) => {
         {
           dataKey: "frequency",
           colorGetter: (data) => defineColor(data),
-          valueFormatter: (value) => "Frequency: " + value,
+          valueFormatter: (value) =>
+            "Frequency: " +
+            value +
+            (value === 1 ? " measurement" : " measurements"),
         },
       ]}
       xAxis={[

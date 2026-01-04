@@ -83,8 +83,9 @@ const Graphs = () => {
       {chartType === "histogram" && (
         <div className="white-bg">
           <Typography fontSize={14} fontWeight={"bold"}>
+            Frequency of breathing rate measurements from{" "}
             {formatDateMMDDYYYY(data[0].timestamp)}
-            {" - "}
+            {" to "}
             {formatDateMMDDYYYY(data[data.length - 1].timestamp)}
           </Typography>
           <Histogram data={data.map((rateObj) => rateObj.rate)} />
