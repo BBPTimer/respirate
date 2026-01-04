@@ -1,19 +1,17 @@
 import {
   AreaChart,
+  BarChart,
   CalendarMonth,
   EditCalendar,
-  PieChart as PieChartIcon,
-  ScatterPlot,
 } from "@mui/icons-material";
 import { Button, ButtonGroup, Typography } from "@mui/material";
-import { LineChart } from "@mui/x-charts/LineChart";
-import { PieChart } from "@mui/x-charts/PieChart";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
-import { formatDate, formatDateMMDDYYYY, rateAverage } from "../common/utils";
+import { formatDateMMDDYYYY, rateAverage } from "../common/utils";
 import { AppContext } from "../contexts/AppContext";
-import BellCurveOverlay from "./BellCurveOverlay";
+import Histogram from "./graphs/Histogram";
+import Line from "./graphs/Line";
 import PetSelector from "./ui/PetSelector";
 import SaveButton from "./ui/SaveButton";
 
@@ -23,14 +21,6 @@ const Graphs = () => {
   const [data, setData] = useState([...pets[selectedPet].rateHistory]);
   // Update data when selected pet changes
   useEffect(() => setData([...pets[selectedPet].rateHistory]), [selectedPet]);
-
-  const valueFormatterPie = (item) => item.value + "%";
-
-  // Formats chart x-axis
-  const valueFormatter = (value) => {
-    const dateObject = new Date(value);
-    return formatDate(dateObject);
-  };
 
   const dataAverage = () => {
     if (data.length > 0) {
@@ -79,137 +69,29 @@ const Graphs = () => {
         >
           Line
         </Button>
-        {/* <Button
+        <Button
           variant={chartType === "histogram" ? "contained" : "outlined"}
           onClick={() => setChartType("histogram")}
           startIcon={<BarChart />}
         >
           Histogram
-        </Button> */}
-        <Button
-          variant={chartType === "scatter" ? "contained" : "outlined"}
-          onClick={() => setChartType("scatter")}
-          startIcon={<ScatterPlot />}
-        >
-          Scatter
-        </Button>
-        <Button
-          variant={chartType === "pie" ? "contained" : "outlined"}
-          onClick={() => setChartType("pie")}
-          startIcon={<PieChartIcon />}
-        >
-          Pie
         </Button>
       </ButtonGroup>
       <br />
       <br />
-      {chartType === "line" && (
-        <LineChart
-          dataset={data}
-          xAxis={[
-            {
-              dataKey: "timestamp",
-              label: "Date",
-              valueFormatter: valueFormatter,
-              scaleType: "band",
-              tickLabelStyle: {
-                angle: 90,
-              },
-              height: data.length > 0 ? 175 : undefined,
-            },
-          ]}
-          series={[
-            {
-              dataKey: "rate",
-              valueFormatter: (value) => value + " breaths/minute",
-            },
-          ]}
-          yAxis={[
-            {
-              label: "Breathing Rate (breaths/minute)",
-              tickMinStep: 1,
-              colorMap: {
-                type: "piecewise",
-                thresholds: [parseInt(pets[selectedPet].targetRate) + 1 / 1000],
-                colors: ["#4caf50", "#f44336"],
-              },
-            },
-          ]}
-          grid={{ horizontal: true }}
-          height={400}
-          sx={{
-            backgroundColor: "white",
-            border: 1,
-            borderColor: "lightgray",
-            borderRadius: "5px",
-          }}
-        />
-      )}
-      {/* {chartType === "histogram" && data.length < 3 && (
-        <p>Must have at least 3 datapoints for histogram</p>
-      )}
-      {chartType === "histogram" && data.length >= 3 && (
-        <Histogram data={data.map((rateObj) => rateObj.rate)} />
-      )} */}
-      {chartType === "scatter" && data.length < 3 && (
-        <p>Must have at least 3 datapoints for scatter plot</p>
-      )}
-      {chartType === "scatter" && data.length >= 3 && (
-        <BellCurveOverlay data={data.map((rateObj) => rateObj.rate)} />
-      )}
-      {chartType === "pie" && data.length === 0 && <p>No data to display</p>}
-      {chartType === "pie" && data.length > 0 && (
+      {chartType === "line" && <Line data={data} />}
+      {chartType === "histogram" && (
         <div className="white-bg">
-          <Typography>Breathing Rates</Typography>
-          <PieChart
-            series={[
-              {
-                innerRadius: 75,
-                valueFormatter: valueFormatterPie,
-                arcLabel: valueFormatterPie,
-                arcLabelMinAngle: 35,
-                highlightScope: { fade: "global", highlight: "item" },
-                faded: { color: "Gray" },
-                data: [
-                  {
-                    value: Math.round(
-                      (data.filter(
-                        (datapoint) =>
-                          datapoint.rate <= pets[selectedPet].targetRate
-                      ).length /
-                        data.length) *
-                        100
-                    ),
-                    label: "At or below target rate",
-                    color: "#4caf50",
-                  },
-                  {
-                    value: Math.round(
-                      (data.filter(
-                        (datapoint) =>
-                          datapoint.rate > pets[selectedPet].targetRate
-                      ).length /
-                        data.length) *
-                        100
-                    ),
-                    label: "Above target rate",
-                    color: "#f44336",
-                  },
-                ],
-              },
-            ]}
-            height={300}
-            width={300}
-            slotProps={{
-              legend: {
-                direction: "horizontal",
-                position: {
-                  vertical: "top",
-                  horizontal: "center",
-                },
-              },
-            }}
-          />
+          <Typography fontSize={14} fontWeight={"bold"}>
+            {formatDateMMDDYYYY(data[0].timestamp)}
+            {" - "}
+            {formatDateMMDDYYYY(data[data.length - 1].timestamp)}
+          </Typography>
+          <Histogram data={data.map((rateObj) => rateObj.rate)} />
+          <Typography fontSize={12} fontStyle={"italic"}>
+            Bars greater or less than 1 standard deviation from the mean appear
+            faded
+          </Typography>
         </div>
       )}
       <br />

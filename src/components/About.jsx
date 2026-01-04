@@ -1,9 +1,44 @@
+import { Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
+import { useContext } from "react";
+import { useNavigate } from "react-router";
+import sampleData from "../assets/respirateBackup.json";
+import { AppContext } from "../contexts/AppContext";
+import ConfirmDialog from "./ui/ConfirmDialog";
 
 const About = () => {
+  const {
+    parseDataString,
+    storePets,
+    setIsConfirmOpen,
+    setConfirmMessage,
+    setConfirmCallback,
+    cleanUpConfirm,
+  } = useContext(AppContext);
+
+  let navigate = useNavigate();
+
+  const loadSampleData = () => {
+    localStorage.setItem("pets", JSON.stringify(sampleData));
+    storePets(parseDataString(localStorage.getItem("pets")));
+
+    // Navigate to graphs
+    navigate("/graphs");
+
+    cleanUpConfirm();
+  };
+
+  const handleSampleDataClick = () => {
+    setIsConfirmOpen(true);
+    setConfirmMessage(
+      "If you have existing pet data, this will overwrite it with sample data. Proceed?"
+    );
+    setConfirmCallback(() => loadSampleData);
+  };
+
   return (
     <div id="about">
       <h1>About</h1>
@@ -66,9 +101,12 @@ const About = () => {
         <br />
         <br />
         Don't fret! The{" "}
-        <Link href="/data" underline="none">
+        <span
+          onClick={() => navigate("/data")}
+          style={{ color: "#f44336", cursor: "pointer" }}
+        >
           Data
-        </Link>{" "}
+        </span>{" "}
         page has buttons to back up your data, and to restore it if you ever
         need! Additionally, 30 days after your most recent backup, RespiRate
         will show you a dialog that reminds you to back up your data, with a
@@ -117,10 +155,14 @@ const About = () => {
         Flyer with QR code
       </Link>
       <br />
-      <Link href="/respirateBackup.json" download={"respirateBackup"} underline="none">
-        Download sample data
-      </Link>
-      <br />
+      <Typography
+        onClick={handleSampleDataClick}
+        color="red"
+        style={{ cursor: "pointer" }}
+      >
+        Load sample data
+      </Typography>
+      <ConfirmDialog />
       <br />
       <Divider />
       <h2>
