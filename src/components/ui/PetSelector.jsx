@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AppContext } from "../../contexts/AppContext";
 
 const PetSelector = () => {
-  const { pets, selectedPet, storeselectedPet } = useContext(AppContext);
+  const { pets, selectedPet, storeSelectedPet } = useContext(AppContext);
 
   const options = pets.map((pet, index) => {
     return (
@@ -14,7 +14,7 @@ const PetSelector = () => {
   });
 
   const handleSelectChange = (event) => {
-    storeselectedPet(event.target.value);
+    storeSelectedPet(event.target.value);
   };
 
   return (

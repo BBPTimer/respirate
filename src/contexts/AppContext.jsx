@@ -67,7 +67,7 @@ export const AppContextProvider = ({ children }) => {
     localStorage.getItem("selectedPet") || 0
   );
 
-  const storeselectedPet = (index) => {
+  const storeSelectedPet = (index) => {
     setSelectedPet(index);
     localStorage.setItem("selectedPet", index);
   };
@@ -131,7 +131,7 @@ export const AppContextProvider = ({ children }) => {
         storePets,
         selectedPet,
         setSelectedPet,
-        storeselectedPet,
+        storeSelectedPet,
         isBackUpDialogOpen,
         setIsBackUpDialogOpen,
         isSnackbarOpen,

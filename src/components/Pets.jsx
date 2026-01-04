@@ -1,11 +1,11 @@
 import { AddCircle, Delete } from "@mui/icons-material";
 import {
-  Button,
-  ButtonGroup,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
+    Button,
+    ButtonGroup,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    TextField,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import Pet from "../classes/Pet";
@@ -19,7 +19,7 @@ const Pets = () => {
     pets,
     storePets,
     selectedPet,
-    storeselectedPet,
+    storeSelectedPet,
     setIsSnackbarOpen,
     setSnackbarMessage,
     setIsConfirmOpen,
@@ -138,7 +138,7 @@ const Pets = () => {
     }
 
     storePets(updatedPets);
-    storeselectedPet(findIndexByName(updatedPets, selectedPetName));
+    storeSelectedPet(findIndexByName(updatedPets, selectedPetName));
 
     cleanUpConfirm();
   };
@@ -161,7 +161,7 @@ const Pets = () => {
     );
     sortByName(updatedPets);
     storePets(updatedPets);
-    storeselectedPet(findIndexByName(updatedPets, event.target.name.value));
+    storeSelectedPet(findIndexByName(updatedPets, event.target.name.value));
 
     // Close form
     setDisplayForm(false);

@@ -13,6 +13,7 @@ const About = () => {
   const {
     parseDataString,
     storePets,
+    storeSelectedPet,
     setIsConfirmOpen,
     setConfirmMessage,
     setConfirmCallback,
@@ -24,6 +25,7 @@ const About = () => {
   const loadSampleData = () => {
     localStorage.setItem("pets", JSON.stringify(sampleData));
     storePets(parseDataString(localStorage.getItem("pets")));
+    storeSelectedPet(0);
 
     // Navigate to graphs
     navigate("/graphs");
@@ -157,8 +159,8 @@ const About = () => {
       <br />
       <Typography
         onClick={handleSampleDataClick}
-        color="red"
-        style={{ cursor: "pointer" }}
+        color="#f44336"
+        style={{ fontSize: 15, cursor: "pointer" }}
       >
         Load sample data
       </Typography>

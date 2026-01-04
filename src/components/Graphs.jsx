@@ -81,7 +81,7 @@ const Graphs = () => {
       <br />
       {chartType === "line" && <Line data={data} />}
       {chartType === "histogram" && data.length === 0 && (
-        <Typography>No data to display</Typography>
+        <div className="white-bg">No data to display</div>
       )}
       {chartType === "histogram" && data.length > 0 && (
         <div className="white-bg">
