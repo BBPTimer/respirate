@@ -153,10 +153,6 @@ const About = () => {
       </p>
       <Divider />
       <h2>For Vets</h2>
-      <Link href="/flyer.png" target="_blank" underline="none">
-        Flyer with QR code
-      </Link>
-      <br />
       <Typography
         onClick={handleSampleDataClick}
         color="#f44336"
@@ -165,6 +161,10 @@ const About = () => {
         Load sample data
       </Typography>
       <ConfirmDialog />
+      <Link href="/flyer.png" target="_blank" underline="none">
+        Flyer with QR code
+      </Link>
+      <br />
       <br />
       <Divider />
       <h2>

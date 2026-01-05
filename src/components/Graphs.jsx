@@ -74,12 +74,17 @@ const Graphs = () => {
           onClick={() => setChartType("histogram")}
           startIcon={<BarChart />}
         >
-          Histogram
+          Frequency
         </Button>
       </ButtonGroup>
       <br />
       <br />
-      {chartType === "line" && <Line data={data} />}
+      {chartType === "line" && (
+        <>
+          <Line data={data} />
+          <br />
+        </>
+      )}
       {chartType === "histogram" && data.length === 0 && (
         <div className="white-bg">No data to display</div>
       )}
@@ -92,13 +97,8 @@ const Graphs = () => {
             {formatDateMMDDYYYY(data[data.length - 1].timestamp)}
           </Typography>
           <Histogram data={data.map((rateObj) => rateObj.rate)} />
-          <Typography fontSize={12} fontStyle={"italic"}>
-            Bars greater or less than 1 standard deviation from the mean appear
-            faded
-          </Typography>
         </div>
       )}
-      <br />
       {dataAverage()}
       <Button
         variant="contained"
