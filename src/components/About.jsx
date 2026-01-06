@@ -5,7 +5,7 @@ import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
-import sampleData from "../assets/respirateBackup.json";
+import sampleData from "../assets/sampleData.json";
 import { AppContext } from "../contexts/AppContext";
 import ConfirmDialog from "./ui/ConfirmDialog";
 
