@@ -143,8 +143,8 @@ const About = () => {
         />
       </AvatarGroup>
       <p className="justified">
-        My name is Greg Weseloh, and I had a dog, Buster, who had congestive
-        heart failure. Now I have a dog, Dean, with mitral valve disease. Our
+        My name is Greg, and I had a dog, Buster, who had congestive heart
+        failure. Now I have a dog, Dean, with mitral valve disease. Our
         veterinary cardiologist recommended tracking their breathing rate to
         monitor disease progression and help inform treatment. I found other
         apps buggy and limited in features, so I decided to build a better

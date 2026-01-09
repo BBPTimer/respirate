@@ -5,7 +5,7 @@ import { AppContext } from "../../contexts/AppContext";
 
 const Histogram = ({ data }) => {
   const { pets, selectedPet } = useContext(AppContext);
-  const [fadeOutliers, setFadeOutliers] = useState(true);
+  const [fadeOutliers, setFadeOutliers] = useState(false);
 
   // Set up series
   const min = Math.min(...data);
