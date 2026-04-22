@@ -67,7 +67,7 @@ const Timer = () => {
   };
 
   const [timerDuration, setTimerDuration] = useState(
-    localStorage.getItem("timerDuration") || 30
+    localStorage.getItem("timerDuration") || 30,
   );
 
   const [displayForm, setDisplayForm] = useState(false);
@@ -119,7 +119,7 @@ const Timer = () => {
     addRate(
       Math.round((60 / timerDuration) * refTaps.current),
       new Date(),
-      event.target.comment.value
+      event.target.comment.value,
     );
 
     // Reset timer
@@ -233,11 +233,18 @@ const Timer = () => {
 
       {/* Comment dialog */}
       <Dialog open={isCommentDialogOpen}>
+        <Typography padding={"10px"}>
+          <b>{Math.round((60 / timerDuration) * stateTaps)}</b> breaths/minute
+        </Typography>
         <form onSubmit={handleCommentSubmit}>
-          <DialogContent>
+          <DialogContent
+            sx={{
+              padding: "0px 24px",
+            }}
+          >
             <CommentTextField />
           </DialogContent>
-          <DialogActions>
+          <DialogActions sx={{ justifyContent: "center" }}>
             <SaveButton />
           </DialogActions>
         </form>
