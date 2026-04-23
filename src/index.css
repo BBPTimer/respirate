@@ -37,7 +37,11 @@ table {
 }
 
 input {
-  font-size: 16px;
+  font-size: 16px !important;
+}
+
+.left {
+  text-align: left;
 }
 
 .green {

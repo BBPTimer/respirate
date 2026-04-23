@@ -5,6 +5,7 @@ import {
   IconButton,
   InputAdornment,
   OutlinedInput,
+  Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
@@ -25,6 +26,8 @@ const Data = () => {
     pets,
     storePets,
     selectedPet,
+    setSnackbarMessage,
+    setIsSnackbarOpen,
     addRate,
     setIsConfirmOpen,
     setConfirmMessage,
@@ -44,10 +47,19 @@ const Data = () => {
       date = new Date(event.target.timestamp.value);
     }
 
+    // Error if timestamp already exists in rate history
+    for (const rate of pets[selectedPet].rateHistory) {
+      if (rate.timestamp.getTime() === date.getTime()) {
+        setSnackbarMessage("Data already exists for this timestamp.");
+        setIsSnackbarOpen(true);
+        return;
+      }
+    }
+
     addRate(
       parseInt(event.target.rate.value),
       date,
-      event.target.comment.value
+      event.target.comment.value,
     );
 
     // Close form
@@ -72,6 +84,16 @@ const Data = () => {
     cleanUpConfirm();
   };
 
+  const updateRateHistory = (updatedRateHistory) => {
+    // Copy existing pets array
+    let updatedPets = [...pets];
+    // Update pets array with new rate history
+    updatedPets[selectedPet].rateHistory = updatedRateHistory;
+
+    // Update rates
+    storePets(updatedPets);
+  };
+
   const deleteRate = (index) => {
     // Copy existing rate history
     let updatedRateHistory = [...pets[selectedPet].rateHistory];
@@ -82,13 +104,23 @@ const Data = () => {
     // Sort new rates array by timestamp
     updatedRateHistory.sort((a, b) => a.timestamp - b.timestamp);
 
-    // Copy existing pets array
-    let updatedPets = [...pets];
-    // Update pets array with new rate history
-    updatedPets[selectedPet].rateHistory = updatedRateHistory;
+    updateRateHistory(updatedRateHistory);
+  };
 
-    // Update rates
-    storePets(updatedPets);
+  const editComment = (updatedRow) => {
+    // Copy existing rate history
+    let updatedRateHistory = [...pets[selectedPet].rateHistory];
+
+    // Update comment
+    updatedRateHistory.forEach((rate) => {
+      if (rate.timestamp === updatedRow.timestamp) {
+        rate.comment = updatedRow.comment;
+      }
+    });
+
+    updateRateHistory(updatedRateHistory);
+
+    return updatedRow;
   };
 
   const columns = [
@@ -126,9 +158,18 @@ const Data = () => {
     },
     {
       field: "comment",
-      headerName: "Comment",
+      renderHeader: () => (
+        <div className="left">
+          Comment
+          <br />
+          <Typography fontSize="10px">
+            Double-tap to edit, return to save
+          </Typography>
+        </div>
+      ),
       sortable: false,
       filterable: false,
+      editable: true,
       disableColumnMenu: true,
       width: 1000,
     },
@@ -206,6 +247,9 @@ const Data = () => {
             sortModel: [{ field: "timestamp", sort: "desc" }],
           },
         }}
+        // Comment editing
+        processRowUpdate={(updatedRow) => editComment(updatedRow)}
+        onProcessRowUpdateError={(error) => console.log(error.message)}
         // Table styling
         sx={{ border: 1, borderColor: "lightgray", borderRadius: "5px" }}
         disableRowSelectionOnClick
