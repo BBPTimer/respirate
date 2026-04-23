@@ -163,7 +163,7 @@ const Data = () => {
           Comment
           <br />
           <Typography fontSize="10px">
-            Double-tap to edit, return to save
+            Double-tap to edit
           </Typography>
         </div>
       ),
@@ -249,7 +249,6 @@ const Data = () => {
         }}
         // Comment editing
         processRowUpdate={(updatedRow) => editComment(updatedRow)}
-        onProcessRowUpdateError={(error) => console.log(error.message)}
         // Table styling
         sx={{ border: 1, borderColor: "lightgray", borderRadius: "5px" }}
         disableRowSelectionOnClick
