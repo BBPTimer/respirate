@@ -52,6 +52,10 @@ input {
   color: #f44336;
 }
 
+.MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+
 .MuiPieChart-seriesLabels {
   font-size: 14px;
 }
