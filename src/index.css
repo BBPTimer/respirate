@@ -52,7 +52,7 @@ input {
   color: #f44336;
 }
 
-.MuiDataGrid-cell:focus-within {
+.MuiDataGrid-cell, .MuiDataGrid-columnHeader {
   outline: none !important;
 }
 
