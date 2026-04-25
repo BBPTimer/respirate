@@ -52,8 +52,13 @@ input {
   color: #f44336;
 }
 
-.MuiDataGrid-cell, .MuiDataGrid-columnHeader {
+.MuiDataGrid-cell,
+.MuiDataGrid-columnHeader {
   outline: none !important;
+}
+
+.MuiDataGrid-columnSeparator {
+  color: var(--DataGrid-t-color-border-base) !important;
 }
 
 .MuiPieChart-seriesLabels {
